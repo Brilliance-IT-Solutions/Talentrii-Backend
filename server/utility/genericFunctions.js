@@ -15,7 +15,7 @@
             },
 
             checkEmptyNull: function (object, data, errfun) {
-                if (data === undefined || data === "") {
+                if (data === undefined || data === "" || data === null) {
                     var message;
                     message = this.errorFunc(object + " is missing");
                     errfun(message);

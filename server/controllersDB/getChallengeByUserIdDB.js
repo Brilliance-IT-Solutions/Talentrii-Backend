@@ -28,7 +28,7 @@ const getChallengeByUserIdDB = () =>{
                     if(result.length > 0){
                         if(result[0]){
                             let data = result[0]
-                            if(data[0] && (data[0].message = "Challenge Success")){
+                            if(data && data[0] && data[0].length > 0 && (data[0].message = "Challenge Success")){
                                 const resultdata = await groupChallenges(result[0])
                                 let response={
                                     "message":"Challenge Succeed",
@@ -36,7 +36,11 @@ const getChallengeByUserIdDB = () =>{
                                 }
                                 successFn(response)
                             }else{
-                                errFn(result,StatusCodes.StatusCodes.INTERNAL_SERVER_ERROR)
+                                let response={
+                                    "message":"Challenge Succeed",
+                                    "data":data
+                                }
+                                successFn(response)
                             }
                         }
                     }else{
