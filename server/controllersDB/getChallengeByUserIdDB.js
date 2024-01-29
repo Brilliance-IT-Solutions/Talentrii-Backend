@@ -36,10 +36,12 @@ const getChallengeByUserIdDB = () =>{
                                 }
                                 successFn(response)
                             }else{
+                                const resultdata = await groupChallenges(result[0])
                                 let response={
                                     "message":"Challenge Succeed",
-                                    "data":data
+                                    "data":resultdata
                                 }
+
                                 successFn(response)
                             }
                         }

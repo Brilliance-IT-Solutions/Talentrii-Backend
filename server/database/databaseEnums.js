@@ -30,9 +30,12 @@ module.exports = Object.freeze({
         proc_editProfile:"proc_editProfile",
         proc_getChallenges_By_Id:"proc_getChallengeDetail_ByChallengeId",
         proc_getChallenges_By_UserId:"proc_getChallenges_By_UserId",
-        proc_signUp_with_google:"proc_signUp_with_google",
-        proc_signIn_with_google:"proc_signIn_with_google"
-
+        proc_search_challenge:"proc_search_challenge",
+        proc_Follow_User:"proc_Follow_User",
+        proc_getFollowing_By_UserId:"proc_getFollowing_By_UserId",
+        proc_getFollowers_By_UserId:"proc_getFollowers_By_UserId",
+        proc_getuser_status:"proc_getuser_status",
+        proc_mutualFriends:"proc_mutualFriends"
     },
 
     errorEnum: {
@@ -52,9 +55,12 @@ module.exports = Object.freeze({
         proc_editProfile:"EDITPROFILE_ERROR",
         proc_getChallenges_By_Id:"GET_CHALLENGE_BY_ID_ERROR",
         proc_getChallenges_By_UserId:"GET_CHALLENGE_BY_USERID_ERROR",
-        proc_signUp_with_google:"SIGNUP_WITH_GOOGLE_ERROR",
-        proc_signIn_with_google:"SIGNIN_WITH_GOOGLE_ERROR"
-
+        proc_search_challenge:"SEARCH_CHALLENGE_ERROR",
+        proc_Follow_User:"FOLLOW_USER_ERROR",
+        proc_getFollowing_By_UserId:"ERROR_GETTING_FOLLOWING",
+        proc_getFollowers_By_UserId:"ERROR_GETTING_FOLLOWERS",
+        proc_getuser_status:"ERROR_USER_STATUS",
+        proc_mutualFriends:"ERROR_GETTING_MUTUAL_FRIENDS"
     }
 })
 

@@ -58,7 +58,7 @@
             findDuplicates : async (data) => {
                 const output = {};
                 data.forEach((obj) => {
-                  const key = obj.challenge_id;
+                  const key = obj.categoryId;
                   if (!output[key]) {
                     output[key] = [];
                   }
@@ -79,8 +79,8 @@
                 return nestedArray.map(outerObj => ({
                   ...outerObj,
                   inner: outerObj.inner.map(innerObj => {
-                    const matchingObject = array2.find(obj =>  obj.id === outerObj.id && obj.inner.some(i => i.challenge_id === innerObj.challenge_id));
-                    return matchingObject ? { ...innerObj, comment_count: matchingObject.inner.find(i => i.challenge_id === innerObj.challenge_id).comments_count } : innerObj;
+                    const matchingObject = array2.find(obj =>  obj.id === outerObj.id && obj.inner.some(i => i.categoryId === innerObj.categoryId));
+                    return matchingObject ? { ...innerObj, comment_count: matchingObject.inner.find(i => i.categoryId === innerObj.categoryId).comments_count } : innerObj;
                   }),
                 }));
               }

@@ -19,6 +19,11 @@ const getPurposeChallenge = require("../server/controllersDB/purposeChallengeDB"
 const updateProfileDB = require("../server/controllersDB/editProfileDB")
 const getChallengeById = require("../server/controllersDB/getChallengesByChallengeId")
 const getChallengeByUserId = require("../server/controllersDB/getChallengeByUserIdDB")
+const searchApiDB = require("../server/controllersDB/searchApiDB")
+const FollowUserDB = require("../server/controllersDB/FollowUserDB")
+// const getFollowingByUserIdDataDB = require("./controllersDB/getFollowingByUserId")
+const getFollowersByUserIdDataDB = require("./controllersDB/getFollowersByUserId")
+const getMutualFriends = require("../server/controllersDB/mutualFriends")
 
 router.get('/', function (req, res, next) {
     res.send('SERVER STARTED');
@@ -40,6 +45,10 @@ router.post('/getPurposeChallenge' , authenticate,getPurposeChallenge.PurposeCha
 router.patch('/updateProfile', authenticate,updateProfileDB.editProfileDB)
 router.post('/getChallengeById', authenticate,getChallengeById.getChallengeByChallengeId)
 router.post('/getChallengeByUserId',authenticate,getChallengeByUserId.getChallengeByUserIdDB)
-
+router.post("/search", authenticate ,searchApiDB.searchApiDB)
+router.post("/follow", authenticate ,FollowUserDB.FollowUserDB)
+// router.post("/following", authenticate ,getFollowingByUserIdDataDB.getFollowingByUserIdDataDB)
+router.post("/followers", authenticate ,getFollowersByUserIdDataDB.getFollowersByUserIdDataDB)
+router.post("/mutual-friends", authenticate ,getMutualFriends.getMutualFriendsDataDB)
 
 module.exports = router;

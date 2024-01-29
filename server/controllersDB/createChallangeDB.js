@@ -102,7 +102,6 @@ const createChallangeDB = () => {
             req.body.privacy
           ),
         ];
-        console.log(inputObject)
         sqlConnect.connectDb(
           req,
           errFn,
@@ -130,7 +129,7 @@ const createChallangeDB = () => {
                           element.thumbnailurl
                         ),
                         genericFunc.inputparams(
-                          "challenge_id",
+                          "categoryId",
                           dataTypeEnum.varChar,
                           challengeId
                         ),
@@ -143,6 +142,11 @@ const createChallangeDB = () => {
                           "type",
                           dataTypeEnum.varChar,
                           element.type
+                        ),
+                        genericFunc.inputparams(
+                          "uploadCategory",
+                          dataTypeEnum.varChar,
+                          element.category
                         ),
                       ];
 

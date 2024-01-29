@@ -54,9 +54,9 @@ const getChallengeByChallengeId = () => {
               const updatedNestedArray = genericFunc.includeCommentCount(newarray, newarray2);
               // Output the updated nestedArray
               // Modify the first object in the first array directly
-              updatedNestedArray[0].comments = comments;
-              updatedNestedArray[0].userDetail = userDetail[0];
-              updatedNestedArray[0].challlengeDetail = challlengeDetail[0]
+              updatedNestedArray.length > 0 ?  updatedNestedArray[0].comments = comments : null;
+              updatedNestedArray.length > 0 ?  updatedNestedArray[0].userDetail = userDetail[0]  : null;
+              updatedNestedArray.length > 0 ?  updatedNestedArray[0].challlengeDetail = challlengeDetail[0]  : null
                 const response = {
                    message: data.message,
                    data: updatedNestedArray,

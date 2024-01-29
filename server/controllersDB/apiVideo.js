@@ -53,6 +53,7 @@ const uploadVideo = async (req, res, next) => {
               thumbnailurl: thumbnailImage.Location,
               originalurl: compressedImageFile.Location,
               type: file.mimetype,
+              category:req.body.category
             };
 
             processedFiles.push(obj);
@@ -80,6 +81,7 @@ const uploadVideo = async (req, res, next) => {
               thumbnailurl: videoUploadResponse.assets.thumbnail,
               originalurl: videoUploadResponse.assets.mp4,
               type: file.mimetype,
+              category:req.body.category
             };
 
             processedFiles.push(obj);
@@ -130,7 +132,7 @@ async function uploadToS3(key, file, mimetype) {
       if (err) {
         console.error("Error uploading thumbnail to S3:", err);
       } else {
-        console.log("Thumbnail uploaded to S3:", data);
+        // console.log("Thumbnail uploaded to S3:", data);
         uploadedData = data;
         resolve(data);
       }
