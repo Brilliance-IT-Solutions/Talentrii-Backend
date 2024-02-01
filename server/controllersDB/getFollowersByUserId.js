@@ -8,14 +8,16 @@ const {
   errorEnum,
 } = require("../database/databaseEnums");
 const StatusCodes = require("http-status-codes");
+const schema = require("../schemas/followersSchema");
 
 
 const getFollowersByUserIdDataDB = () => {
   return {
     getFollowersByUserIdDataDB: async (req, res, next) => {
-      const page = req.query.page || 1;
-      const pageSize = req.query.pageSize || 10;
-      const type = req.query.type || "followers"
+      const userId = req.query.userId
+      const page = req.query.page;
+      const pageSize = req.query.pageSize;
+      const type = req.query.type
       const startIdx = (page - 1) * pageSize;
       const successFn = (result) => {
         jsonResponse.successHandler(res, next, result);
@@ -24,14 +26,14 @@ const getFollowersByUserIdDataDB = () => {
         jsonResponse.errorHandler(res, next, err, statusCode);
       };
 
-      if (genericFunc.checkEmptyNull("userId", req.body.userId, errFn) == true)
-        return;
+      if(genericFunc.validator(req.query,schema,errFn) == true)
+      return;
 
       const inputObject = [
         genericFunc.inputparams(
           "userId",
           dataTypeEnum.varChar,
-          req.body.userId
+          userId
         ),
         genericFunc.inputparams("type", dataTypeEnum.varChar, type),
         genericFunc.inputparams("startIdx", dataTypeEnum.varChar, startIdx),
@@ -63,7 +65,7 @@ const getFollowersByUserIdDataDB = () => {
         }
       }
       )
-    },
+  }
   };
 };
 

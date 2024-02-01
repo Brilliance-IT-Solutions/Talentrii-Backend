@@ -2,7 +2,8 @@ const sqlConnect = require('../database/connection');
 const genericFunc = require('../utility/genericFunctions');
 const jsonResponse = require('../utility/jsonResponse')
 const { dataTypeEnum, procedureEnum, errorEnum } = require('../database/databaseEnums');
-
+const {signUpSchema} = require("../schemas/userSchema");
+const statusCode = require("http-status-codes");
 const signUpDB = () => {
     return {
         signUpDB: async (req, res, next) => {
@@ -12,14 +13,8 @@ const signUpDB = () => {
             const errFn = (err) => {
                 jsonResponse.errorHandler(res, next, err)
             }
-
-            if (
-                genericFunc.checkEmptyNull('firstName', req.body.firstName, errFn) == true ||
-                genericFunc.checkEmptyNull('emailId', req.body.emailId, errFn) == true ||
-                genericFunc.checkPasswordRequired('password',req.body.password, req.body.authProvider,errFn) == true ||
-                genericFunc.checkEmptyNull('authProvider', req.body.authProvider, errFn) ==  true
-                ) return
-
+            if(genericFunc.validator(req.body,signUpSchema,errFn) == true)
+            return;
 
             const inputObject = [
                 genericFunc.inputparams('firstName', dataTypeEnum.varChar, req.body.firstName),

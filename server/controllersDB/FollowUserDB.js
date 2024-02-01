@@ -3,6 +3,7 @@ const genericFunc = require('../utility/genericFunctions');
 const jsonResponse = require('../utility/jsonResponse')
 const { dataTypeEnum, procedureEnum, errorEnum } = require('../database/databaseEnums');
 const statusCode = require("http-status-codes")
+const schema = require("../schemas/followUserSchema")
 
 const FollowUserDB = () => {
     return {
@@ -13,6 +14,9 @@ const FollowUserDB = () => {
             const errFn = (err,statusCode) => {
                 jsonResponse.errorHandler(res, next, err,statusCode)
             }
+
+            if(genericFunc.validator(req.body,schema,errFn) == true)
+            return;
 
             const inputObject = [
                 genericFunc.inputparams("requestedByUser", dataTypeEnum.varChar, req.user.id),

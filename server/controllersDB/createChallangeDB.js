@@ -7,7 +7,7 @@ const {
   procedureEnum,
   errorEnum,
 } = require("../database/databaseEnums");
-const schema = require("../schemas/createChallengeSchema");
+const {createChallengeSchema} = require("../schemas/createChallengeSchema");
 
 const createChallangeDB = () => {
   return {
@@ -18,30 +18,9 @@ const createChallangeDB = () => {
       const errFn = (err, statusCode) => {
         jsonResponse.errorHandler(res, next, err, statusCode);
       };
-      var reqB = JSON.stringify(req.body);
-      var reqBody = JSON.parse(reqB);
-      const { error } = schema.validate(reqBody);
-      if (error) {
-        var message =
-          error?.details?.length && error.details[0].message
-            ? error.details[0].message
-            : "Missing Fields";
-        const response = {
-          message: message,
-          // 'token': genericFunc.generateTokenLink(data),
-        };
-        errFn(response, statusCode.StatusCodes.NOT_ACCEPTABLE);
-        return;
-      } else {
-        // if (genericFunc.checkEmptyNull('userId', req.user.id, errFn) == true ||
-        //     genericFunc.checkEmptyNull('title', req.body.title, errFn) == true ||
-        //     genericFunc.checkEmptyNull('description', req.body.description, errFn) == true ||
-        //     genericFunc.checkEmptyNull('url', req.body.url, errFn) == true ||
-        //     genericFunc.checkEmptyNull('latitude', req.body.latitude, errFn) == true ||
-        //     genericFunc.checkEmptyNull('longitude', req.body.longitude, errFn) == true ||
-        //     genericFunc.checkEmptyNull('fromDate', req.body.fromDate, errFn) == true ||
-        //     genericFunc.checkEmptyNull('toDate', req.body.toDate, errFn) == true ||
-        //     genericFunc.checkEmptyNull('time', req.body.time, errFn) == true) return
+
+      if(genericFunc.validator(req.body,createChallengeSchema,errFn) == true)
+      return;
 
         const inputObject = [
           genericFunc.inputparams("userId", dataTypeEnum.varChar, req.user.id),
@@ -192,7 +171,6 @@ const createChallangeDB = () => {
           }
         );
       }
-    },
   };
 };
 module.exports = createChallangeDB();

@@ -7,11 +7,11 @@ const {
   procedureEnum,
   errorEnum,
 } = require("../database/databaseEnums");
+const {getChallengeByChallengeIdSchema} = require("../schemas/createChallengeSchema")
 
 const getChallengeByChallengeId = () => {
   return {
     getChallengeByChallengeId: async (req, res, next) => {
-        console.log(req.body)
       const successFn = (result) => {
         jsonResponse.successHandler(res, next, result);
       };
@@ -22,9 +22,12 @@ const getChallengeByChallengeId = () => {
       if (genericFunc.checkEmptyNull("userId", req.user.id, errFn) == true)
         return;
 
+        if(genericFunc.validator(req.query,getChallengeByChallengeIdSchema,errFn) == true)
+        return;
+
       const inputObject = [
         genericFunc.inputparams("userId", dataTypeEnum.varChar, req.user.id),
-        genericFunc.inputparams("challengeId", dataTypeEnum.varChar, req.body.challengeId),
+        genericFunc.inputparams("challengeId", dataTypeEnum.varChar, req.query.challengeId),
       ];
 
       sqlConnect.connectDb(
@@ -72,7 +75,7 @@ const getChallengeByChallengeId = () => {
           }
         }
       );
-    },
+  }
   };
 };
 

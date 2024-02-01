@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-module.exports = Joi.object({
+const createChallengeSchema = Joi.object({
   title: Joi.string().required().max(20).min(3).messages({
     "string.base": `Title should be string`,
     "string.empty": `Title cannot be an empty field`,
@@ -30,5 +30,20 @@ module.exports = Joi.object({
   location:Joi.string().allow(''),
   privacy:Joi.string().allow(''),
 });
+
+const getChallengeByChallengeIdSchema = Joi.object({
+  challengeId : Joi.string().required().messages({
+    "string.base": `challengeId should be string`,
+    "string.empty": `challengeId cannot be an empty field`,
+    "any.required": `challengeId is a required field`,
+})
+
+})
+
+
+module.exports = {
+  createChallengeSchema,
+  getChallengeByChallengeIdSchema
+}
 
 

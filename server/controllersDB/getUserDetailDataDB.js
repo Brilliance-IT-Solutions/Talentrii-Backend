@@ -11,7 +11,6 @@ const {
 const getUserDetailDataDB = () => {
   return {
     getUserDetailDataDB: async (req, res, next) => {
-        console.log(req.body)
       const successFn = (result) => {
         jsonResponse.successHandler(res, next, result);
       };
@@ -19,12 +18,11 @@ const getUserDetailDataDB = () => {
         jsonResponse.errorHandler(res, next, err, statusCode);
       };
 
-      if (genericFunc.checkEmptyNull("userId", req.body.userId, errFn) == true)
+      if (genericFunc.checkEmptyNull("userId", req.query.userId, errFn) == true)
         return;
 
       const inputObject = [
-        genericFunc.inputparams("userId", dataTypeEnum.varChar, req.body.userId),
-
+        genericFunc.inputparams("userId", dataTypeEnum.varChar, req.query.userId),
       ];
 
       sqlConnect.connectDb(

@@ -83,9 +83,26 @@
                     return matchingObject ? { ...innerObj, comment_count: matchingObject.inner.find(i => i.categoryId === innerObj.categoryId).comments_count } : innerObj;
                   }),
                 }));
-              }
+              },
 
+            validator : (data, schema,errFn)=>{
+            var reqB = JSON.stringify(data);
+            var reqBody = JSON.parse(reqB);
+            const { error } = schema.validate(reqBody);
+            if (error) {
+              var message =
+                error?.details?.length && error.details[0].message
+                  ? error.details[0].message
+                  : "Missing Fields";
+              const response = {
+                message: message,
+              };
+              errFn(response);
+              return true;
+            }
+            return false
         }
+      }
     };
     module.exports = generics();
 })();

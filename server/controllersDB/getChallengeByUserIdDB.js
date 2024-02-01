@@ -16,11 +16,11 @@ const getChallengeByUserIdDB = () =>{
                 jsonResponse.errorHandler(res,next,err,statusCode)
             }
 
-            if(genericFunctions.checkEmptyNull("userId", req.body.userId ,errFn)===true)
+            if(genericFunctions.checkEmptyNull("userId", req.query.userId ,errFn)===true)
              return;
 
             const inputObject =[
-                genericFunctions.inputparams("userId",dataTypeEnum.varChar,req.body.userId)
+                genericFunctions.inputparams("userId",dataTypeEnum.varChar,req.query.userId)
             ]
 
             sqlConnect.connectDb(req,errFn,procedureEnum.proc_getChallenges_By_UserId,inputObject,errorEnum.proc_getChallenges_By_UserId,
