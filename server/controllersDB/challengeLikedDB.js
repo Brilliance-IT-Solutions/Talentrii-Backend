@@ -2,7 +2,8 @@ const sqlConnect = require('../database/connection');
 const genericFunc = require('../utility/genericFunctions');
 const jsonResponse = require('../utility/jsonResponse')
 const { dataTypeEnum, procedureEnum, errorEnum } = require('../database/databaseEnums');
-const statusCode = require("http-status-codes")
+const statusCode = require("http-status-codes");
+const { likeSchema } = require('../schemas/likeSchema');
 
 const challengeLikedDB = () => {
     return {
@@ -13,6 +14,8 @@ const challengeLikedDB = () => {
             const errFn = (err,statusCode) => {
                 jsonResponse.errorHandler(res, next, err,statusCode)
             }
+
+            if(genericFunc.validator(req.body,likeSchema,errFn)==true) return;
 
             const inputObject = [
                 genericFunc.inputparams("userId", dataTypeEnum.varChar, req.user.id),

@@ -45,7 +45,7 @@ router.post('/getPurposeChallenge' , authenticate,getPurposeChallenge.PurposeCha
 router.patch('/updateProfile', authenticate,updateProfileDB.editProfileDB)
 router.get('/getChallengeById', authenticate,getChallengeById.getChallengeByChallengeId)
 router.get('/getChallengeByUserId',authenticate,getChallengeByUserId.getChallengeByUserIdDB)
-router.post("/search", authenticate ,searchApiDB.searchApiDB)
+router.get("/search", authenticate ,searchApiDB.searchApiDB)
 router.post("/follow", authenticate ,FollowUserDB.FollowUserDB)
 // router.post("/following", authenticate ,getFollowingByUserIdDataDB.getFollowingByUserIdDataDB)
 router.get("/followers", authenticate ,getFollowersByUserIdDataDB.getFollowersByUserIdDataDB)

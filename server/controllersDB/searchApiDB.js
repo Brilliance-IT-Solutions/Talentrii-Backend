@@ -3,6 +3,7 @@ const jsonResponse = require("../utility/jsonResponse")
 const {dataTypeEnum,procedureEnum,errorEnum} = require("../database/databaseEnums")
 const sqlConnect = require("../database/connection")
 const StatusCodes = require("http-status-codes");
+const { searchSchema } = require("../schemas/searchSchema");
 
 const searchApiDB = () =>{
     return{searchApiDB : async  (req,res,next) =>{
@@ -13,12 +14,14 @@ const searchApiDB = () =>{
             jsonResponse.errorHandler(res,next,err,statusCode)
         }
 
-        if(genericFunctions.checkEmptyNull("userId",req.user.id,errFn)== true ||
-         genericFunctions.checkEmptyNull("searchTerm",req.body.searchTerm,errFn)== true) return;
+        if(genericFunctions.checkEmptyNull("userId",req.user.id,errFn)== true) return
+
+        if(genericFunctions.validator(req.query,searchSchema,errFn)===true) 
+        return;
         
         const inputObject = [
             genericFunctions.inputparams("userId",dataTypeEnum.varChar,req.user.id),
-            genericFunctions.inputparams("searchTerm",dataTypeEnum.varChar,req.body.searchTerm)
+            genericFunctions.inputparams("searchTerm",dataTypeEnum.varChar,req.query.searchTerm)
         ]
 
         sqlConnect.connectDb(req,errFn,procedureEnum.proc_search_challenge,inputObject,errorEnum.proc_search_challenge,

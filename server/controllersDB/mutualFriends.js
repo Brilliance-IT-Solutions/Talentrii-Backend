@@ -42,15 +42,8 @@ const getMutualFriendsDataDB = () => {
             if (result[0]) {
               let data = result[0];
                if(data && data.length > 0 && (data[0].message = "Mutual Friend Success")){
-              //   let data = result[0];
-              //   let data1 = result[1];
-              //  const resultResponse = await mutualFriends(data, data1)
-              //  let response ={
-              //   "message":"mutual Friends Success",
-              //   "data":resultResponse
-              //  }
 
-              // Map the array to create an array of strings
+              // Map the array to create an array of images
               const firstTwoImages = data.slice(0, 2);
               const firstTwoImage = firstTwoImages.map((obj) => ({
                 key: obj.userProfile,
@@ -97,19 +90,4 @@ const getMutualFriendsDataDB = () => {
   };
 };
 
-async function mutualFriends(loggedIn, Others) {
-  let mutualFriend = [];
-  let users = [];
-  loggedIn.forEach((item, index) => {
-    Others.forEach((data, i) => {
-      if (item.toUser === data.toUser) {
-        const message = `${item.toUser}`;
-        return mutualFriend.push(message);
-      } else {
-        return [];
-      }
-    });
-  });
-  return mutualFriend.length > 0 ? `Followed By ${mutualFriend}`: [];
-}
 module.exports = getMutualFriendsDataDB();
