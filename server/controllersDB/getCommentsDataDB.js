@@ -7,11 +7,11 @@ const {
   procedureEnum,
   errorEnum,
 } = require("../database/databaseEnums");
+const { getCommentsByChallengeIdSchema } = require("../schemas/commentSchema");
 
 const getCommentsDataDB = () => {
   return {
     getCommentsDataDB: async (req, res, next) => {
-        console.log(req.body)
       const successFn = (result) => {
         jsonResponse.successHandler(res, next, result);
       };
@@ -22,9 +22,12 @@ const getCommentsDataDB = () => {
       if (genericFunc.checkEmptyNull("userId", req.user.id, errFn) == true)
         return;
 
+        if(genericFunc.validator(req.query,getCommentsByChallengeIdSchema,errFn)=== true)
+        return;
+
       const inputObject = [
         genericFunc.inputparams("userId", dataTypeEnum.varChar, req.user.id),
-        genericFunc.inputparams("challengeId", dataTypeEnum.varChar, req.body.challengeId)
+        genericFunc.inputparams("challengeId", dataTypeEnum.varChar, req.query.challengeId)
       ];
 
       sqlConnect.connectDb(

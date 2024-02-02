@@ -3,6 +3,7 @@ const genericFunc = require('../utility/genericFunctions');
 const jsonResponse = require('../utility/jsonResponse')
 const { dataTypeEnum, procedureEnum, errorEnum } = require('../database/databaseEnums');
 const statusCode = require("http-status-codes")
+const {signInSchema} = require("../schemas/userSchema")
 
 const loginDB = () => {
     return {
@@ -14,10 +15,8 @@ const loginDB = () => {
                 jsonResponse.errorHandler(res, next, err,statusCode)
             }
 
-            if (
-                genericFunc.checkEmptyNull('emailId', req.body.emailId, errFn) == true ||
-                genericFunc.checkPasswordRequired('password',req.body.password, req.body.authProvider,errFn) == true ||
-                genericFunc.checkEmptyNull('authProvider', req.body.authProvider, errFn) == true) return
+            if(genericFunc.validator(req.body,signInSchema,errFn) == true)
+            return;
 
             const inputObject = [
                 genericFunc.inputparams('emailId', dataTypeEnum.varChar, req.body.emailId),

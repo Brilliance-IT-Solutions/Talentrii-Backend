@@ -2,7 +2,8 @@ const sqlConnect = require('../database/connection');
 const genericFunc = require('../utility/genericFunctions');
 const jsonResponse = require('../utility/jsonResponse')
 const { dataTypeEnum, procedureEnum, errorEnum } = require('../database/databaseEnums');
-const statusCode = require("http-status-codes")
+const statusCode = require("http-status-codes");
+const { addCommentsByChallengeIdSchema } = require('../schemas/commentSchema');
 
 const challengeCommentedDB = () => {
     return {
@@ -13,6 +14,11 @@ const challengeCommentedDB = () => {
             const errFn = (err,statusCode) => {
                 jsonResponse.errorHandler(res, next, err,statusCode)
             }
+            if(genericFunc.checkEmptyNull("userId", req.user.id ,errFn)=== true)
+            return;
+
+            if(genericFunc.validator(req.body,addCommentsByChallengeIdSchema,errFn)=== true)
+            return;
 
             const inputObject = [
                 genericFunc.inputparams("userId", dataTypeEnum.varChar, req.user.id),

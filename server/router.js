@@ -39,7 +39,7 @@ router.delete('/delete/:id',authenticate, deleteFile.deleteFileDB)
 router.post('/upload' , upload.array('files',7) , uploadVideo.uploadVideo)
 router.post('/likechallenge' , authenticate,challengeLiked.challengeLikedDB)
 router.post('/commentChallenge' , authenticate,challengeCommented.challengeCommentedDB)
-router.post('/getcommentChallenge' , authenticate,getCommensChallenge.getCommentsDataDB)
+router.get('/getcommentChallenge' , authenticate,getCommensChallenge.getCommentsDataDB)
 router.get('/getUserDetailById' , authenticate,getUserDetail.getUserDetailDataDB)
 router.post('/getPurposeChallenge' , authenticate,getPurposeChallenge.PurposeChallengeDataDB),
 router.patch('/updateProfile', authenticate,updateProfileDB.editProfileDB)

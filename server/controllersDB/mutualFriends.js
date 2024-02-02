@@ -41,7 +41,7 @@ const getMutualFriendsDataDB = () => {
           if (result.length > 0) {
             if (result[0]) {
               let data = result[0];
-
+               if(data && data.length > 0 && (data[0].message = "Mutual Friend Success")){
               //   let data = result[0];
               //   let data1 = result[1];
               //  const resultResponse = await mutualFriends(data, data1)
@@ -70,12 +70,20 @@ const getMutualFriendsDataDB = () => {
               const resultString = `${firstTwoStrings}${remainingString}`;
 
               let obj = {
-                message: "mutual Friends Success",
+                message: data[0].message,
                 images: firstTwoImage,
-                data: `Followed By ${resultString}`,
+                data: resultString ? `Followed By ${resultString}` : "",
               };
 
               successFn(obj);
+            }else{
+              response = {
+                message: "No Mutual friends",
+                data:[],
+                images:[]
+              };
+              errFn(response, statusCode.StatusCodes.UNAUTHORIZED);
+            }
             } else {
               response = {
                 message: data.message,
@@ -102,6 +110,6 @@ async function mutualFriends(loggedIn, Others) {
       }
     });
   });
-  return `Followed By ${mutualFriend}`;
+  return mutualFriend.length > 0 ? `Followed By ${mutualFriend}`: [];
 }
 module.exports = getMutualFriendsDataDB();
