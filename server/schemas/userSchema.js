@@ -35,6 +35,7 @@ const signUpSchema = Joi.object({
     }), 
     otherwise: Joi.string().allow(''),  
   }),
+  profileImage : Joi.string().allow('')
 })
 
 const signInSchema = Joi.object({

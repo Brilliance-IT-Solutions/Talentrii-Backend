@@ -96,7 +96,6 @@ const uploadVideo = async (req, res, next) => {
         message: "Media Uploaded!",
         urls: processedFiles,
       };
-      console.log(response);
       successFn(response);
     }
   } catch (error) {

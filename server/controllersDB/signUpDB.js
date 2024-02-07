@@ -20,7 +20,8 @@ const signUpDB = () => {
                 genericFunc.inputparams('firstName', dataTypeEnum.varChar, req.body.firstName),
                 genericFunc.inputparams('emailId', dataTypeEnum.varChar, req.body.emailId),
                 genericFunc.inputparams('passsword', dataTypeEnum.varChar, req.body.password ? genericFunc.encrypt(req.body.password):''),
-                genericFunc.inputparams('authProvider', dataTypeEnum.varChar, req.body.authProvider)
+                genericFunc.inputparams('authProvider', dataTypeEnum.varChar, req.body.authProvider),
+                genericFunc.inputparams('profileImage', dataTypeEnum.varChar, req.body.profileImage ? req.body.profileImage : ''),
             ]
 
             sqlConnect.connectDb(req, errFn, procedureEnum.proc_signUp, inputObject, errorEnum.proc_signUp, function (result) {

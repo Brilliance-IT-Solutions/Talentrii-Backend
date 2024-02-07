@@ -58,7 +58,8 @@
             findDuplicates : async (data) => {
                 const output = {};
                 data.forEach((obj) => {
-                  const key = obj.categoryId;
+                  const parsedData = obj.media ? JSON.parse(obj.media) : obj;
+                  const key = parsedData.categoryId
                   if (!output[key]) {
                     output[key] = [];
                   }
@@ -66,7 +67,6 @@
                     obj.constructor.name === "RowDataPacket" ? { ...obj } : obj;
                   output[key].push(convertedObj);
                 });
-              
                 const resultArrays = Object.values(output).map((arr, id) => ({
                   id,
                   inner: arr,
@@ -79,8 +79,9 @@
                 return nestedArray.map(outerObj => ({
                   ...outerObj,
                   inner: outerObj.inner.map(innerObj => {
-                    const matchingObject = array2.find(obj =>  obj.id === outerObj.id && obj.inner.some(i => i.categoryId === innerObj.categoryId));
-                    return matchingObject ? { ...innerObj, comment_count: matchingObject.inner.find(i => i.categoryId === innerObj.categoryId).comments_count } : innerObj;
+                    const parsedData = innerObj.media ? JSON.parse(innerObj.media) : innerObj;
+                    const matchingObject = array2.find(obj =>  obj.id === outerObj.id && obj.inner.some(i => i.categoryId === parsedData.categoryId));
+                    return matchingObject ? { ...innerObj, comment_count: matchingObject.inner.find(i => i.categoryId === parsedData.categoryId).comments_count } : innerObj;
                   }),
                 }));
               },
