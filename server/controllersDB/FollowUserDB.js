@@ -25,7 +25,7 @@ const FollowUserDB = () => {
             ]
 
             sqlConnect.connectDb(req, errFn, procedureEnum.proc_Follow_User, inputObject, errorEnum.proc_Follow_User, function (result) {
-                if (result.length > 0) {
+                if (result) {
                     if (result[0]) {
                         let data = result[0]
                         if (data[0].message === 'Success') {
@@ -35,13 +35,13 @@ const FollowUserDB = () => {
                             }
                             successFn(response);
                         } else {
-                            response = {
-                                'message': data.message
-                            }
-                            errFn(response,statusCode.StatusCodes.BAD_REQUEST);
+                            errFn(result[0],statusCode.StatusCodes.BAD_REQUEST);
                         }
                     }
+                }else{
+                    errFn(result[0],statusCode.StatusCodes.BAD_REQUEST)
                 }
+                
             })
         }
     }

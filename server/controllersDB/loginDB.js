@@ -8,6 +8,7 @@ const {signInSchema} = require("../schemas/userSchema")
 const loginDB = () => {
     return {
         loginDB: async (req, res, next) => {
+          try{
             const successFn = (result) => {
                 jsonResponse.successHandler(res, next, result)
             }
@@ -45,6 +46,10 @@ const loginDB = () => {
                 }
             })
         }
+        catch(error){
+            errFn(error,statusCode.StatusCodes.BAD_REQUEST);
+        }
     }
+}
 }
 module.exports = loginDB();

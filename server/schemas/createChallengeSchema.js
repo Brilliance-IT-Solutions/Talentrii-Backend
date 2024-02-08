@@ -21,7 +21,7 @@ const createChallengeSchema = Joi.object({
   startDate: Joi.date().optional().allow(null),
   endDate: Joi.date().optional().allow(null),
   startTime:Joi.string().allow(''),
-  category:Joi.string().required().messages({
+  category:Joi.string().valid('Break', 'Joinees').required().messages({
     "string.base": `category should be string`,
     "string.empty": `category cannot be an empty field`,
     "any.required": `category is a required field`,

@@ -80,12 +80,11 @@ async function checkUserStatus(connection,userId,procedure){
     if(userId){
     return new Promise((resolve, reject) => {
     connection.query(`${"CALL " + procedure + "(" + userId + ")"}`, (err, result) => {
-        if (err) throw errroFunc(err);
+        if (err) throw err;
        if(result.length>0){
         statusResult = result[0][0].status
         statusReason = result[0][0].statusReason
        }
-         
         resolve({statusResult,statusReason})
      });
     })

@@ -7,6 +7,7 @@ const {
   procedureEnum,
   errorEnum,
 } = require("../database/databaseEnums");
+const { dashboardSchema } = require("../schemas/getDashboardSchema");
 
 const getDashboardDataDB = () => {
   return {
@@ -23,6 +24,10 @@ const getDashboardDataDB = () => {
 
       if (genericFunc.checkEmptyNull("userId", req.user.id, errFn) == true)
         return;
+
+        if (genericFunc.validator(req.query, dashboardSchema, errFn) == true)
+        return;
+
 
       const inputObject = [
         genericFunc.inputparams("userId", dataTypeEnum.varChar, req.user.id),

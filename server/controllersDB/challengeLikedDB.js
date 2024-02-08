@@ -24,10 +24,10 @@ const challengeLikedDB = () => {
             ]
 
             sqlConnect.connectDb(req, errFn, procedureEnum.proc_like_challange, inputObject, errorEnum.proc_like_challange, function (result) {
-                if (result.length > 0) {
+                if (result) {
                     if (result[0][0]) {
                         let data = result[0][0]
-                        if (data.message === 'Liked Success') {
+                        if (data.message === 'Liked Success' || data.message === 'updated media likes') {
                             response = {
                                 'message': data.message,
                                 'data': data
@@ -40,6 +40,8 @@ const challengeLikedDB = () => {
                             errFn(response,statusCode.StatusCodes.BAD_REQUEST);
                         }
                     }
+                }else{
+                    errFn(result[0],statusCode.StatusCodes.BAD_REQUEST);
                 }
             })
         }
