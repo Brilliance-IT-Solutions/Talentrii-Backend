@@ -7,6 +7,7 @@ const {
   procedureEnum,
   errorEnum,
 } = require("../database/databaseEnums");
+const { userIdSchema } = require("../schemas/userIdSchema");
 
 const getUserDetailDataDB = () => {
   return {
@@ -18,7 +19,7 @@ const getUserDetailDataDB = () => {
         jsonResponse.errorHandler(res, next, err, statusCode);
       };
 
-      if (genericFunc.checkEmptyNull("userId", req.query.userId, errFn) == true)
+        if(genericFunc.validator(req.query,userIdSchema,errFn)== true)
         return;
 
       const inputObject = [

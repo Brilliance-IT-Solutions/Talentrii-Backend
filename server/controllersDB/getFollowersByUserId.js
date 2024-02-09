@@ -8,7 +8,7 @@ const {
   errorEnum,
 } = require("../database/databaseEnums");
 const StatusCodes = require("http-status-codes");
-const schema = require("../schemas/followersSchema");
+const {FollowerSchema} = require("../schemas/followersSchema");
 
 
 const getFollowersByUserIdDataDB = () => {
@@ -26,7 +26,7 @@ const getFollowersByUserIdDataDB = () => {
         jsonResponse.errorHandler(res, next, err, statusCode);
       };
 
-      if(genericFunc.validator(req.query,schema,errFn) == true)
+      if(genericFunc.validator(req.query,FollowerSchema,errFn) == true)
       return;
 
       const inputObject = [

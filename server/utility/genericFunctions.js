@@ -54,6 +54,49 @@
                 return (crypto.createHash('sha256').update(pwd).digest('base64'));
             },
 
+             MediaExtractor : async (data)=>{
+             const output_data = [];
+             let challenge,creator,media
+              data.forEach((item)=>{
+                challenge = JSON.parse(item['challenge'])
+                creator = JSON.parse(item['creator'])
+                media = JSON.parse(item['media'])
+                
+                let foundChallenge = output_data.find(obj => obj.challenge.id === challenge.id);
+                  if (!foundChallenge) {
+                      foundChallenge = {
+                          challenge: {
+                              id: challenge.id,
+                              title: challenge.title,
+                              desc: challenge.description,
+                              noOfLikes: item.likes_count,
+                              noOfComments: item.comments_count,
+                              noOfShares: "0",
+                              isAlreadySaved: false,
+                              isAlreadyJoined: false
+                          },
+                          creator: {
+                              id: creator.id,
+                              name: creator.name,
+                              profilePicUrl: creator.profilePicUrl,
+                              location: creator.location,
+                              isFollowed: creator.isFollow
+                          },
+                          media: []
+                      };
+                      output_data.push(foundChallenge);
+                  }
+              
+                  foundChallenge.media.push({
+                      id: media?.id,
+                      type: media?.type,
+                      thumb: media?.thumbnail_url,
+                  });
+              })
+              
+              return output_data
+              
+              },
 
             findDuplicates : async (data) => {
                 const output = {};

@@ -32,12 +32,12 @@ const createChallengeSchema = Joi.object({
 });
 
 const getChallengeByChallengeIdSchema = Joi.object({
+  userId:Joi.number().required(),
   challengeId : Joi.string().required().messages({
     "string.base": `challengeId should be string`,
     "string.empty": `challengeId cannot be an empty field`,
     "any.required": `challengeId is a required field`,
 })
-
 })
 
 

@@ -8,6 +8,7 @@ const {
   errorEnum,
 } = require("../database/databaseEnums");
 const StatusCodes = require("http-status-codes");
+const { userIdSchema } = require("../schemas/userIdSchema");
 
 
 const getFollowingByUserIdDataDB = () => {
@@ -23,8 +24,8 @@ const getFollowingByUserIdDataDB = () => {
         jsonResponse.errorHandler(res, next, err, statusCode);
       };
 
-      if (genericFunc.checkEmptyNull("userId", req.body.userId, errFn) == true)
-        return;
+      if(genericFunc.validator(req.body,userIdSchema,errFn)== true)
+      return;
 
       const inputObject = [
         genericFunc.inputparams(

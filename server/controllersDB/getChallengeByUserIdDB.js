@@ -6,6 +6,7 @@ const sqlConnect = require("../database/connection")
 const genericFunctions =require("../utility/genericFunctions")
 
 const jsonResponse = require("../utility/jsonResponse")
+const {userIdSchema} = require("../schemas/userIdSchema")
 const getChallengeByUserIdDB = () =>{
     return {
         getChallengeByUserIdDB : async (req,res,next)=>{
@@ -16,7 +17,7 @@ const getChallengeByUserIdDB = () =>{
                 jsonResponse.errorHandler(res,next,err,statusCode)
             }
 
-            if(genericFunctions.checkEmptyNull("userId", req.query.userId ,errFn)===true)
+             if(genericFunctions.validator(req.query,userIdSchema,errFn)===true)
              return;
 
             const inputObject =[

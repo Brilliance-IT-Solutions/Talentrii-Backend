@@ -6,7 +6,9 @@ const app = express();
 const router = require('./server/router')
 const dotenv = require('dotenv')
 const constants = require('./server/utility/constants')
-dotenv.config()
+dotenv.config({
+    path: `${process.env.NODE_ENV}.env`
+})
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({

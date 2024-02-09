@@ -19,9 +19,7 @@ const getCommentsDataDB = () => {
         jsonResponse.errorHandler(res, next, err, statusCode);
       };
 
-      if (genericFunc.checkEmptyNull("userId", req.user.id, errFn) == true)
-        return;
-
+        req.query.userId = req.user.id
         if(genericFunc.validator(req.query,getCommentsByChallengeIdSchema,errFn)=== true)
         return;
 

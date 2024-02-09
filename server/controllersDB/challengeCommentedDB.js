@@ -13,10 +13,8 @@ const challengeCommentedDB = () => {
             }
             const errFn = (err,statusCode) => {
                 jsonResponse.errorHandler(res, next, err,statusCode)
-            }
-            if(genericFunc.checkEmptyNull("userId", req.user.id ,errFn)=== true)
-            return;
-
+            }   
+            req.body.userId = req.user.id
             if(genericFunc.validator(req.body,addCommentsByChallengeIdSchema,errFn)=== true)
             return;
 

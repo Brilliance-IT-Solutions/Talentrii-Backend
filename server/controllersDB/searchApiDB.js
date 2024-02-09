@@ -14,8 +14,7 @@ const searchApiDB = () =>{
             jsonResponse.errorHandler(res,next,err,statusCode)
         }
 
-        if(genericFunctions.checkEmptyNull("userId",req.user.id,errFn)== true) return
-
+        req.query.userId = req.user.id
         if(genericFunctions.validator(req.query,searchSchema,errFn)===true) 
         return;
         

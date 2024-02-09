@@ -21,13 +21,10 @@ const getDashboardDataDB = () => {
       const errFn = (err, statusCode) => {
         jsonResponse.errorHandler(res, next, err, statusCode);
       };
-
-      if (genericFunc.checkEmptyNull("userId", req.user.id, errFn) == true)
-        return;
-
+      
+       req.query.userId = req.user.id
         if (genericFunc.validator(req.query, dashboardSchema, errFn) == true)
         return;
-
 
       const inputObject = [
         genericFunc.inputparams("userId", dataTypeEnum.varChar, req.user.id),
@@ -47,12 +44,7 @@ const getDashboardDataDB = () => {
               let data = result[0];
               let data2 = result[1];
               if (data2[0].message === "Success") {
-               const newarray = await genericFunc.findDuplicates(result[1]);
-              //  const newarray2 = await genericFunc.findDuplicates(result[1]);
-            //  // Call the function
-            //  const updatedNestedArray = genericFunc.includeCommentCount(newarray, newarray2);
-
-             // Output the updated nestedArray
+               const newarray = await genericFunc.MediaExtractor(result[1]);
                const response = {
                   message: data.message,
                   data: newarray,
@@ -72,6 +64,5 @@ const getDashboardDataDB = () => {
     },
   };
 };
-
 
 module.exports = getDashboardDataDB();

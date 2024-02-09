@@ -7,7 +7,7 @@ const {
   procedureEnum,
   errorEnum,
 } = require("../database/databaseEnums");
-const {userIdSchema} = require("../schemas/userIdSchema")
+const { mutualFriendSchema } = require("../schemas/followersSchema");
 
 
 const getMutualFriendsDataDB = () => {
@@ -19,11 +19,9 @@ const getMutualFriendsDataDB = () => {
       const errFn = (err, statusCode) => {
         jsonResponse.errorHandler(res, next, err, statusCode);
       };
-
-      if (genericFunc.checkEmptyNull("requestedByUserId", req.user.id, errFn) == true)
-        return;
-
-        if(genericFunc.validator(req.query,userIdSchema,errFn) == true)
+      
+      req.query.requestedByUser = req.user.id
+        if(genericFunc.validator(req.query,mutualFriendSchema,errFn) == true)
         return;
 
       const inputObject = [

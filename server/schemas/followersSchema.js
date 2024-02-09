@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-module.exports = Joi.object({
+const FollowerSchema = Joi.object({
   userId: Joi.string().required().messages({
     "string.base": `userId should be string`,
     "string.empty": `userId cannot be an empty field`,
@@ -20,3 +20,13 @@ module.exports = Joi.object({
   })
 
 })
+
+const mutualFriendSchema = Joi.object({
+  requestedByUser:Joi.number().required(),
+  userId: Joi.number().required(),
+})
+
+module.exports ={
+  FollowerSchema,
+  mutualFriendSchema
+}

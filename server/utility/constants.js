@@ -13,4 +13,5 @@ module.exports = Object.freeze({
 
     awsBucketLocationProfile: 'https://dutchuppblob.s3.amazonaws.com/',
     blobRouter: '/router/blob/uploadfile',
+    defaultImage : 'https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png'
 });

@@ -1,4 +1,6 @@
-require('dotenv').config();
+require('dotenv').config({
+    path: `${process.env.NODE_ENV}.env`
+});
 // module.exports = Object.freeze({
 //     connection: {
 //         host: process.env.DB_HOSTNAME,

@@ -4,6 +4,7 @@ const jsonResponse = require('../utility/jsonResponse')
 const { dataTypeEnum, procedureEnum, errorEnum } = require('../database/databaseEnums');
 const {signUpSchema} = require("../schemas/userSchema");
 const statusCode = require("http-status-codes");
+const constants = require('../utility/constants');
 const signUpDB = () => {
     return {
         signUpDB: async (req, res, next) => {
@@ -21,7 +22,7 @@ const signUpDB = () => {
                 genericFunc.inputparams('emailId', dataTypeEnum.varChar, req.body.emailId),
                 genericFunc.inputparams('passsword', dataTypeEnum.varChar, req.body.password ? genericFunc.encrypt(req.body.password):''),
                 genericFunc.inputparams('authProvider', dataTypeEnum.varChar, req.body.authProvider),
-                genericFunc.inputparams('profileImage', dataTypeEnum.varChar, req.body.profileImage ? req.body.profileImage : ''),
+                genericFunc.inputparams('profileImage', dataTypeEnum.varChar, req.body.profileImage ? req.body.profileImage : constants.defaultImage),
             ]
 
             sqlConnect.connectDb(req, errFn, procedureEnum.proc_signUp, inputObject, errorEnum.proc_signUp, function (result) {
