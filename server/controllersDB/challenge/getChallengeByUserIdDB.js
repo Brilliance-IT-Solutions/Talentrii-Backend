@@ -1,12 +1,12 @@
 const StatusCodes=require("http-status-codes")
 
-const {dataTypeEnum,procedureEnum, errorEnum} = require("../database/databaseEnums")
-const sqlConnect = require("../database/connection")
+const {dataTypeEnum,procedureEnum, errorEnum} = require("../../database/databaseEnums")
+const sqlConnect = require("../../database/connection")
 
-const genericFunctions =require("../utility/genericFunctions")
+const genericFunctions =require("../../utility/genericFunctions")
 
-const jsonResponse = require("../utility/jsonResponse")
-const {userIdSchema} = require("../schemas/userIdSchema")
+const jsonResponse = require("../../utility/jsonResponse")
+const {userIdSchema} = require("../../schemas/userIdSchema")
 const getChallengeByUserIdDB = () =>{
     return {
         getChallengeByUserIdDB : async (req,res,next)=>{

@@ -1,34 +1,33 @@
-const sqlConnect = require('../database/connection');
-const genericFunc = require('../utility/genericFunctions');
-const jsonResponse = require('../utility/jsonResponse')
-const { dataTypeEnum, procedureEnum, errorEnum } = require('../database/databaseEnums');
+const sqlConnect = require('../../database/connection');
+const genericFunc = require('../../utility/genericFunctions');
+const jsonResponse = require('../../utility/jsonResponse')
+const { dataTypeEnum, procedureEnum, errorEnum } = require('../../database/databaseEnums');
 const statusCode = require("http-status-codes");
-const { addCommentsByChallengeIdSchema } = require('../schemas/commentSchema');
+const { likeSchema } = require('../../schemas/likeSchema');
 
-const challengeCommentedDB = () => {
+const challengeLikedDB = () => {
     return {
-        challengeCommentedDB: async (req, res, next) => {
+        challengeLikedDB: async (req, res, next) => {
             const successFn = (result) => {
                 jsonResponse.successHandler(res, next, result)
             }
             const errFn = (err,statusCode) => {
                 jsonResponse.errorHandler(res, next, err,statusCode)
-            }   
-            req.body.userId = req.user.id
-            if(genericFunc.validator(req.body,addCommentsByChallengeIdSchema,errFn)=== true)
-            return;
+            }
+
+            if(genericFunc.validator(req.body,likeSchema,errFn)==true) return;
 
             const inputObject = [
                 genericFunc.inputparams("userId", dataTypeEnum.varChar, req.user.id),
                 genericFunc.inputparams("challengeId", dataTypeEnum.varChar, req.body.challengeId),
-                genericFunc.inputparams("comments", dataTypeEnum.varChar, req.body.comments)               
+                genericFunc.inputparams("status", dataTypeEnum.varChar, req.body.status)               
             ]
 
-            sqlConnect.connectDb(req, errFn, procedureEnum.proc_comment_challange, inputObject, errorEnum.proc_comment_challange, function (result) {
-                if (result.length > 0) {
+            sqlConnect.connectDb(req, errFn, procedureEnum.proc_like_challange, inputObject, errorEnum.proc_like_challange, function (result) {
+                if (result) {
                     if (result[0][0]) {
                         let data = result[0][0]
-                        if (data.message === 'Comment Success') {
+                        if (data.message === 'Liked Success' || data.message === 'updated media likes') {
                             response = {
                                 'message': data.message,
                                 'data': data
@@ -41,9 +40,11 @@ const challengeCommentedDB = () => {
                             errFn(response,statusCode.StatusCodes.BAD_REQUEST);
                         }
                     }
+                }else{
+                    errFn(result[0],statusCode.StatusCodes.BAD_REQUEST);
                 }
             })
         }
     }
 }
-module.exports = challengeCommentedDB();
+module.exports = challengeLikedDB();

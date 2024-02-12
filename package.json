@@ -4,8 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start:local":"set NODE_ENV=development&& nodemon app.js",
-    "start:stage":"set NODE_ENV=stage&& nodemon app.js",
+    "start": "nodemon app.js",
+    "start:local": "set NODE_ENV=development&& nodemon app.js",
+    "start:stage": "set NODE_ENV=stage&& nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "@api.video/nodejs-client": "^2.5.4",
+    "@joi/date": "^2.1.0",
     "aws-sdk": "^2.1048.0",
     "body-parser": "^1.19.1",
     "cors": "^2.8.5",

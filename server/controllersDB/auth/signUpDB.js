@@ -1,10 +1,10 @@
-const sqlConnect = require('../database/connection');
-const genericFunc = require('../utility/genericFunctions');
-const jsonResponse = require('../utility/jsonResponse')
-const { dataTypeEnum, procedureEnum, errorEnum } = require('../database/databaseEnums');
-const {signUpSchema} = require("../schemas/userSchema");
+const sqlConnect = require('../../database/connection');
+const genericFunc = require('../../utility/genericFunctions');
+const jsonResponse = require('../../utility/jsonResponse')
+const { dataTypeEnum, procedureEnum, errorEnum } = require('../../database/databaseEnums');
+const {signUpSchema} = require("../../schemas/userSchema");
 const statusCode = require("http-status-codes");
-const constants = require('../utility/constants');
+const constants = require('../../utility/constants');
 const signUpDB = () => {
     return {
         signUpDB: async (req, res, next) => {

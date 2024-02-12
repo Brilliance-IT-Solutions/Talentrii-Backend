@@ -1,9 +1,9 @@
-const sqlConnect = require('../database/connection');
-const genericFunc = require('../utility/genericFunctions');
-const jsonResponse = require('../utility/jsonResponse')
-const { dataTypeEnum, procedureEnum, errorEnum } = require('../database/databaseEnums');
+const sqlConnect = require('../../database/connection');
+const genericFunc = require('../../utility/genericFunctions');
+const jsonResponse = require('../../utility/jsonResponse')
+const { dataTypeEnum, procedureEnum, errorEnum } = require('../../database/databaseEnums');
 const statusCode = require("http-status-codes")
-const schema = require("../schemas/followUserSchema")
+const schema = require("../../schemas/followUserSchema")
 
 const FollowUserDB = () => {
     return {

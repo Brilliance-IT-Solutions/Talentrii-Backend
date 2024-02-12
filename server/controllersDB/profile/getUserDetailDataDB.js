@@ -1,13 +1,13 @@
 const statusCode = require("http-status-codes");
-const sqlConnect = require("../database/connection");
-const genericFunc = require("../utility/genericFunctions");
-const jsonResponse = require("../utility/jsonResponse");
+const sqlConnect = require("../../database/connection");
+const genericFunc = require("../../utility/genericFunctions");
+const jsonResponse = require("../../utility/jsonResponse");
 const {
   dataTypeEnum,
   procedureEnum,
   errorEnum,
-} = require("../database/databaseEnums");
-const { userIdSchema } = require("../schemas/userIdSchema");
+} = require("../../database/databaseEnums");
+const { userIdSchema } = require("../../schemas/userIdSchema");
 
 const getUserDetailDataDB = () => {
   return {
