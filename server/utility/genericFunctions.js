@@ -71,6 +71,7 @@
                               desc: challenge.description,
                               noOfLikes: item.likes_count,
                               noOfComments: item.comments_count,
+                              totalCount:item.total_count,
                               noOfShares: "0",
                               isAlreadySaved: false,
                               isAlreadyJoined: false

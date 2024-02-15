@@ -4,7 +4,7 @@ const { procedureEnum } = require('./databaseEnums');
 var sqlDb = () => {
     'use strict';
 
-    var mysql = require('mysql');
+    var mysql = require('mysql2');
     const constants = require('../utility/constants')
     const config = require('./configuration');
 

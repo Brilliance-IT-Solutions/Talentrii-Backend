@@ -5,6 +5,8 @@ const jsonResponse = require("../../utility/jsonResponse");
 const statusCode = require("http-status-codes");
 const sharp = require("sharp");
 const aws = require("aws-sdk");
+const genericFunctions = require("../../utility/genericFunctions");
+const { uploadSchema } = require("../../schemas/uploadSchema");
 
 aws.config.update({
   secretAccessKey: constants.S3_IAM_USER_SECRET,
@@ -22,6 +24,13 @@ const uploadVideo = async (req, res, next) => {
   const errFn = (err, statusCode) => {
     jsonResponse.errorHandler(res, next, err, statusCode);
   };
+  let data = {
+    files : req.files,
+    category: req.body.category
+  }
+
+  if(genericFunctions.validator(data,uploadSchema,errFn)===true)
+  return;
   try {
     const files = req.files;
     if (!files) {

@@ -34,25 +34,14 @@ const getUserDetailDataDB = () => {
         errorEnum.proc_getuser_detail,
         async function (result) {
           if (result.length > 0) {
-            if (result[0] && result[1]) {
+            if (result[0]) {
               let data = result[0];
-              let data1 = result[1];
-              let data2 = result[2];
 
-              if ((data[0]?.message === "User Detail Success") || (data1[0]?.message === "User Challenges Success" &&  data2[0]?.message === "Comment Success")) {
-                const newarray = await genericFunc.findDuplicates(result[1]);
-             
-                const newarray2 = await genericFunc.findDuplicates(result[2]);
-                // Call the function
-                const updatedNestedArray = genericFunc.includeCommentCount(newarray, newarray2);
-                 const newResponses = {
-                   ...data[0],
-                  media : updatedNestedArray
-                 }
+              if ((data[0]?.message === "User Detail Success")) {
 
                const response = {
                   message: data.message,
-                  data: newResponses,
+                  data: data,
                 };
                 successFn(response);
               } else {

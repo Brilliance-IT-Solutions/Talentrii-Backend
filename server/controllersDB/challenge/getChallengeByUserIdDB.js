@@ -30,19 +30,16 @@ const getChallengeByUserIdDB = () =>{
                         if(result[0]){
                             let data = result[0]
                             if(data && data[0] && data[0].length > 0 && (data[0].message = "Challenge Success")){
-                                const resultdata = await groupChallenges(result[0])
                                 let response={
                                     "message":"Challenge Succeed",
-                                    "data":resultdata
+                                    "data":data
                                 }
                                 successFn(response)
                             }else{
-                                const resultdata = await groupChallenges(result[0])
                                 let response={
                                     "message":"Challenge Succeed",
-                                    "data":resultdata
+                                    "data":data
                                 }
-
                                 successFn(response)
                             }
                         }
@@ -58,17 +55,17 @@ const getChallengeByUserIdDB = () =>{
     
 }
 
-async function groupChallenges(arr) {
-    const today = new Date().toString().slice(0, 10); 
-    const groupedChallenges = {}; 
-    for (const obj of arr) {
-      const category = obj.category;
-      const startDate = obj.startDate?.toString().slice(0, 10);
-      const targetKey = startDate === today ? "upcomingChallenge" : "pastChallenge";
-      groupedChallenges[category] ??= { upcomingChallenge: [], pastChallenge: [] }; 
-      groupedChallenges[category][targetKey].push(obj);
-    }
-    return groupedChallenges;
-  }
+// async function groupChallenges(arr) {
+//     const today = new Date().toString().slice(0, 10); 
+//     const groupedChallenges = {}; 
+//     for (const obj of arr) {
+//       const category = obj.category;
+//       const startDate = obj.startDate?.toString().slice(0, 10);
+//       const targetKey = startDate === today ? "upcomingChallenge" : "pastChallenge";
+//       groupedChallenges[category] ??= { upcomingChallenge: [], pastChallenge: [] }; 
+//       groupedChallenges[category][targetKey].push(obj);
+//     }
+//     return groupedChallenges;
+//   }
 
 module.exports= getChallengeByUserIdDB();
