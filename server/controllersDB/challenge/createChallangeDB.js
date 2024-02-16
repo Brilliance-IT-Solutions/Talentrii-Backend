@@ -47,17 +47,17 @@ const createChallangeDB = () => {
           ),
           genericFunc.inputparams(
             "startDate",
-            dataTypeEnum.date,
-            req.body.startDate
+            dataTypeEnum.varChar,
+           req.body.startDate
           ),
           genericFunc.inputparams(
             "endDate",
-            dataTypeEnum.date,
+            dataTypeEnum.varChar,
             req.body.endDate
           ),
           genericFunc.inputparams(
             "startTime",
-            dataTypeEnum.time,
+            dataTypeEnum.varChar,
             req.body.startTime
           ),
           genericFunc.inputparams(
@@ -67,7 +67,7 @@ const createChallangeDB = () => {
           ),
           genericFunc.inputparams(
             "endTime",
-            dataTypeEnum.time,
+            dataTypeEnum.varChar,
             req.body.endTime
           ),
           genericFunc.inputparams(
@@ -79,6 +79,16 @@ const createChallangeDB = () => {
             "privacy",
             dataTypeEnum.varChar,
             req.body.privacy
+          ),
+          genericFunc.inputparams(
+            "timerCounter",
+            dataTypeEnum.varChar,
+            req.body.timerCounter
+          ),
+          genericFunc.inputparams(
+            "units",
+            dataTypeEnum.varChar,
+            req.body.units
           ),
         ];
         sqlConnect.connectDb(
@@ -95,6 +105,7 @@ const createChallangeDB = () => {
                   let challengeId = result[1][0].challenge;
                   let media = req.body.url;
                   if (media.length > 0) {
+                    let count = 0;
                     media.forEach((element) => {
                       const inputObject2 = [
                         genericFunc.inputparams(
@@ -136,14 +147,17 @@ const createChallangeDB = () => {
                         inputObject2,
                         errorEnum.proc_upload_media,
                         function (result) {
+                          count++;
+                          if (count === media.length) {
                           if (result.length > 0) {
                             if (result[0]) {
-                              let data = result[0];
-                              if (data[0].message === "Media uploaded") {
+                              let dataMedia = result[0];
+                              if (dataMedia[0].message === "Media uploaded") {
                                 response = {
                                   message: data[0].message,
-                                  // 'token': genericFunc.generateTokenLink(data),
+                                  "data" :  data[data.length - 1]
                                 };
+                                successFn(response);
                               } else {
                                 response = {
                                   message: data[0].message,
@@ -156,15 +170,10 @@ const createChallangeDB = () => {
                             }
                           }
                         }
+                        }
                       );
                     });
                   }
-
-                  response = {
-                    message: data[0].message,
-                    "data" :  data[data.length - 1]
-                  };
-                  successFn(response);
                 }
               }
             }
