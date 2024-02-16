@@ -25,7 +25,7 @@ const getFollowersByUserIdDataDB = require("./controllersDB/follower/getFollower
 const getMutualFriends = require("./controllersDB/follower/mutualFriends")
 
 router.get('/', function (req, res, next) {
-    res.send('SERVER STARTED 1');
+    res.send('SERVER STARTED again');
 });
 
 router.post('/login', login.loginDB)
