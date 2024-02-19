@@ -21,7 +21,7 @@ const createChallangeDB = () => {
 
       if(genericFunc.validator(req.body,createChallengeSchema,errFn) == true)
       return;
-
+       
         const inputObject = [
           genericFunc.inputparams("userId", dataTypeEnum.varChar, req.user.id),
           genericFunc.inputparams(
@@ -37,27 +37,27 @@ const createChallangeDB = () => {
           // genericFunc.inputparams('url', dataTypeEnum.varChar, req.body.url),
           genericFunc.inputparams(
             "latitude",
-            dataTypeEnum.varChar,
+            dataTypeEnum.decimal,
             req.body.latitude
           ),
           genericFunc.inputparams(
             "longitude",
-            dataTypeEnum.varChar,
+            dataTypeEnum.decimal,
             req.body.longitude
           ),
           genericFunc.inputparams(
             "startDate",
-            dataTypeEnum.varChar,
+            dataTypeEnum.date,
            req.body.startDate
           ),
           genericFunc.inputparams(
             "endDate",
-            dataTypeEnum.varChar,
+            dataTypeEnum.date,
             req.body.endDate
           ),
           genericFunc.inputparams(
             "startTime",
-            dataTypeEnum.varChar,
+            dataTypeEnum.time,
             req.body.startTime
           ),
           genericFunc.inputparams(
@@ -67,7 +67,7 @@ const createChallangeDB = () => {
           ),
           genericFunc.inputparams(
             "endTime",
-            dataTypeEnum.varChar,
+            dataTypeEnum.time,
             req.body.endTime
           ),
           genericFunc.inputparams(
@@ -90,6 +90,11 @@ const createChallangeDB = () => {
             dataTypeEnum.varChar,
             req.body.units
           ),
+          genericFunc.inputparams(
+            "parentId",
+            dataTypeEnum.int,
+            req.body.parentId
+          ),
         ];
         sqlConnect.connectDb(
           req,
@@ -110,7 +115,7 @@ const createChallangeDB = () => {
                       const inputObject2 = [
                         genericFunc.inputparams(
                           "userId",
-                          dataTypeEnum.varChar,
+                          dataTypeEnum.int,
                           req.user.id
                         ),
                         genericFunc.inputparams(
@@ -120,7 +125,7 @@ const createChallangeDB = () => {
                         ),
                         genericFunc.inputparams(
                           "categoryId",
-                          dataTypeEnum.varChar,
+                          dataTypeEnum.int,
                           challengeId
                         ),
                         genericFunc.inputparams(

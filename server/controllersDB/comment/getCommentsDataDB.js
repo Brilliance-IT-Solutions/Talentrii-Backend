@@ -24,8 +24,8 @@ const getCommentsDataDB = () => {
         return;
 
       const inputObject = [
-        genericFunc.inputparams("userId", dataTypeEnum.varChar, req.user.id),
-        genericFunc.inputparams("challengeId", dataTypeEnum.varChar, req.query.challengeId)
+        genericFunc.inputparams("userId", dataTypeEnum.int, req.user.id),
+        genericFunc.inputparams("challengeId", dataTypeEnum.int, req.query.challengeId)
       ];
 
       sqlConnect.connectDb(
@@ -40,16 +40,16 @@ const getCommentsDataDB = () => {
               let data = result[0];
               if (data[0]?.message === "Success") {
                const response = {
-                  message: data.message,
+                  "message": data.message,
                   data: result[0],
                 };
 
                 successFn(response);
               } else {
                 response = {
-                  message: data.message,
+                  message: "No comments yet",
                 };
-                errFn(response, statusCode.StatusCodes.UNAUTHORIZED);
+                successFn(response);
               }
             }
           }

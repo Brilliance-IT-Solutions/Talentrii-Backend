@@ -18,8 +18,8 @@ const challengeLikedDB = () => {
             if(genericFunc.validator(req.body,likeSchema,errFn)==true) return;
 
             const inputObject = [
-                genericFunc.inputparams("userId", dataTypeEnum.varChar, req.user.id),
-                genericFunc.inputparams("challengeId", dataTypeEnum.varChar, req.body.challengeId),
+                genericFunc.inputparams("userId", dataTypeEnum.int, req.user.id),
+                genericFunc.inputparams("challengeId", dataTypeEnum.int, req.body.challengeId),
                 genericFunc.inputparams("status", dataTypeEnum.varChar, req.body.status)               
             ]
 

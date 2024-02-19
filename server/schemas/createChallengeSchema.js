@@ -17,21 +17,22 @@ const createChallengeSchema = Joi.object({
     "string.max": `Description characters limit cannnot more than 250`,
   }),
   url: Joi.array().items(Joi.object().required()),
-  latitude:Joi.string().allow(''),
-  longitude:Joi.string().allow(''),
-  startDate: Joi.date().utc().format(['YYYY-MM-DD', 'YYYY/MM/DD']).allow(null,""),
-  endDate: Joi.date().utc().format(['YYYY-MM-DD', 'YYYY/MM/DD']).allow(null,""),
-  startTime:Joi.date().utc().format('HH:mm:ss').allow(null,""),
+  latitude:Joi.number().allow(0),
+  longitude:Joi.number().allow(0),
+  startDate: Joi.date().utc().allow(null),
+  endDate: Joi.date().utc().allow(null),
+  startTime:Joi.date().utc().allow(null,""),
   category:Joi.string().valid('Break', 'Joinees').required().messages({
     "string.base": `category should be string`,
     "string.empty": `category cannot be an empty field`,
     "any.required": `category is a required field`,
   }),
-  endTime:Joi.date().utc().format('HH:mm:ss').allow(null,""),
+  endTime:Joi.date().utc().allow(null),
   location:Joi.string().allow(''),
   privacy:Joi.string().allow(''),
   timerCounter:Joi.string().allow(''),
-  units:Joi.string().valid("seconds", "minutes", "hours", "days", "weeks", "months", "years")
+  units:Joi.string().valid("seconds", "minutes", "hours", "days", "weeks", "months", "years"),
+  parentId:Joi.number().allow(null)
 });
 
 const getChallengeByChallengeIdSchema = Joi.object({

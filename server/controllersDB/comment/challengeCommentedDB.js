@@ -19,8 +19,8 @@ const challengeCommentedDB = () => {
             return;
 
             const inputObject = [
-                genericFunc.inputparams("userId", dataTypeEnum.varChar, req.user.id),
-                genericFunc.inputparams("challengeId", dataTypeEnum.varChar, req.body.challengeId),
+                genericFunc.inputparams("userId", dataTypeEnum.int, req.user.id),
+                genericFunc.inputparams("challengeId", dataTypeEnum.int, req.body.challengeId),
                 genericFunc.inputparams("comments", dataTypeEnum.varChar, req.body.comments)               
             ]
 

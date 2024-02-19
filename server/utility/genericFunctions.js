@@ -92,6 +92,7 @@
                       id: media?.id,
                       type: media?.type,
                       thumb: media?.thumbnail_url,
+                      original:media?.original_url
                   });
               })
               

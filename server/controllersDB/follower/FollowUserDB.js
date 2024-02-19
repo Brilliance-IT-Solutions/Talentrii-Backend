@@ -19,8 +19,8 @@ const FollowUserDB = () => {
             return;
 
             const inputObject = [
-                genericFunc.inputparams("requestedByUser", dataTypeEnum.varChar, req.user.id),
-                genericFunc.inputparams("toUser", dataTypeEnum.varChar, req.body.toUser),
+                genericFunc.inputparams("ByUser", dataTypeEnum.int, req.user.id),
+                genericFunc.inputparams("toUser", dataTypeEnum.int, req.body.toUser),
                 genericFunc.inputparams("isFollow", dataTypeEnum.varChar, req.body.isFollow),
             ]
 
