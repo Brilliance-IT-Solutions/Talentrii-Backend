@@ -13,11 +13,15 @@ const fluentffmpeg = require("fluent-ffmpeg");
 const aws = require("aws-sdk");
 const s3 = new aws.S3();
 
+require('dotenv').config({
+  path: `${process.env.NODE_ENV}.env`
+});
+
 const { uploadSchema } = require("../../schemas/uploadSchema");
 const genericFunctions = require("../../utility/genericFunctions");
 aws.config.update({
-   secretAccessKey: constants.S3_IAM_USER_SECRET,
-   accessKeyId: constants.S3_IAM_USER_KEY,
+   secretAccessKey: process.env.S3_IAM_USER_SECRET,
+   accessKeyId: process.env.S3_IAM_USER_KEY,
   correctClockSkew: true,
   region:constants.REGION
 });
@@ -164,7 +168,7 @@ async function compressVideo(videoBuffer) {
 async function uploadToS3(key, file, mimetype) {
   let uploadedData
   const params = {
-    Bucket: constants.S3_BUCKET_NAME,
+    Bucket: "talentrii-bucket",
     Key: key,
     Body: file,
     ContentType: mimetype,
