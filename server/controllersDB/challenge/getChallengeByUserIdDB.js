@@ -6,10 +6,13 @@ const sqlConnect = require("../../database/connection")
 const genericFunctions =require("../../utility/genericFunctions")
 
 const jsonResponse = require("../../utility/jsonResponse")
-const {userIdSchema} = require("../../schemas/userIdSchema")
+const {getChallengeByUserIdSchema} = require("../../schemas/createChallengeSchema")
 const getChallengeByUserIdDB = () =>{
     return {
         getChallengeByUserIdDB : async (req,res,next)=>{
+            const page = req.query.page;
+            const pageSize = req.query.pageSize;
+            const startIdx = (page - 1) * pageSize;
             const successFn = (result)=>{
                jsonResponse.successHandler(res,next,result)
             }
@@ -17,11 +20,15 @@ const getChallengeByUserIdDB = () =>{
                 jsonResponse.errorHandler(res,next,err,statusCode)
             }
 
-             if(genericFunctions.validator(req.query,userIdSchema,errFn)===true)
+             if(genericFunctions.validator(req.query,getChallengeByUserIdSchema,errFn)===true)
              return;
 
             const inputObject =[
-                genericFunctions.inputparams("userId",dataTypeEnum.varChar,req.query.userId)
+                genericFunctions.inputparams("userId",dataTypeEnum.varChar,req.query.userId),
+                genericFunctions.inputparams("type",dataTypeEnum.varChar,req.query.type),
+                genericFunctions.inputparams("startIdx", dataTypeEnum.varChar, startIdx),
+                genericFunctions.inputparams("pageSize", dataTypeEnum.varChar, pageSize),
+
             ]
 
             sqlConnect.connectDb(req,errFn,procedureEnum.proc_getChallenges_By_UserId,inputObject,errorEnum.proc_getChallenges_By_UserId,
@@ -29,16 +36,18 @@ const getChallengeByUserIdDB = () =>{
                     if(result.length > 0){
                         if(result[0]){
                             let data = result[0]
-                            if(data && data[0] && data[0].length > 0 && (data[0].message = "Challenge Success")){
+                            if(data.length > 0 && (data[0].message = "Challenge Success")){
+                                const media = await genericFunctions.MediaExtractor1(result[0])
                                 let response={
                                     "message":"Challenge Succeed",
-                                    "data":data
+                                    "data":media,
+                                     pagination:{totalCount:data[0].total_count,startIdx:startIdx,pageSize:pageSize}
                                 }
                                 successFn(response)
                             }else{
                                 let response={
-                                    "message":"Challenge Succeed",
-                                    "data":data
+                                    "message":"No challenge found",
+                                    "data":[]
                                 }
                                 successFn(response)
                             }

@@ -35,6 +35,19 @@ const createChallengeSchema = Joi.object({
   parentId:Joi.number().allow(null)
 });
 
+
+const getChallengeByUserIdSchema = Joi.object({
+  userId:Joi.number().required(),
+  type:Joi.string().valid("challenge","saved","accepted").required(),
+  page: Joi.number().integer().min(1).required().messages({
+    "any.required": `page is a required field`,
+  }),  
+  pageSize: Joi.number().integer().min(1).required().messages({
+    "any.required": `pageSize is a required field`,
+  })
+  
+})
+
 const getChallengeByChallengeIdSchema = Joi.object({
   userId:Joi.number().required(),
   challengeId : Joi.string().required().messages({
@@ -47,6 +60,7 @@ const getChallengeByChallengeIdSchema = Joi.object({
 
 module.exports = {
   createChallengeSchema,
+  getChallengeByUserIdSchema,
   getChallengeByChallengeIdSchema
 }
 

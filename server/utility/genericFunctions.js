@@ -74,7 +74,8 @@
                               totalCount:item.total_count,
                               noOfShares: "0",
                               isAlreadySaved: false,
-                              isAlreadyJoined: false
+                              isAlreadyJoined: false,
+                              isAlreadyLiked:item.isLiked
                           },
                           creator: {
                               id: creator.id,
@@ -147,7 +148,34 @@
               return true;
             }
             return false
-        }
+        },
+
+        MediaExtractor1 : async (data)=>{
+          const output_data = [];
+          let media
+           data.forEach((item)=>{
+             media = JSON.parse(item['media'])
+             
+             let foundChallenge = output_data.find(obj => obj.id === item.id);
+               if (!foundChallenge) {
+                   foundChallenge = {
+                      ...item,
+                       media: []
+                   };
+                   output_data.push(foundChallenge);
+               }
+           
+               foundChallenge.media.push({
+                   id: media?.id,
+                   type: media?.type,
+                   thumb: media?.thumbnail_url,
+                   original:media?.original_url
+               });
+           })
+           
+           return output_data
+           
+           },
       }
     };
     module.exports = generics();

@@ -12,6 +12,9 @@ const { getCommentsByChallengeIdSchema } = require("../../schemas/commentSchema"
 const getCommentsDataDB = () => {
   return {
     getCommentsDataDB: async (req, res, next) => {
+      const page = req.query.page;
+      const pageSize = req.query.pageSize;
+      const startIdx = (page - 1) * pageSize;
       const successFn = (result) => {
         jsonResponse.successHandler(res, next, result);
       };
@@ -25,7 +28,9 @@ const getCommentsDataDB = () => {
 
       const inputObject = [
         genericFunc.inputparams("userId", dataTypeEnum.int, req.user.id),
-        genericFunc.inputparams("challengeId", dataTypeEnum.int, req.query.challengeId)
+        genericFunc.inputparams("challengeId", dataTypeEnum.int, req.query.challengeId),
+        genericFunc.inputparams("startIdx", dataTypeEnum.varChar, startIdx),
+        genericFunc.inputparams("pageSize", dataTypeEnum.varChar, pageSize),
       ];
 
       sqlConnect.connectDb(
@@ -42,6 +47,7 @@ const getCommentsDataDB = () => {
                const response = {
                   "message": data.message,
                   data: result[0],
+                  pagination:{totalCount:data[0].total_count,startIdx:startIdx,pageSize:pageSize}
                 };
 
                 successFn(response);

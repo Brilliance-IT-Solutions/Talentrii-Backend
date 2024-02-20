@@ -57,7 +57,7 @@ const createChallangeDB = () => {
           ),
           genericFunc.inputparams(
             "startTime",
-            dataTypeEnum.time,
+            dataTypeEnum.date,
             req.body.startTime
           ),
           genericFunc.inputparams(
@@ -67,7 +67,7 @@ const createChallangeDB = () => {
           ),
           genericFunc.inputparams(
             "endTime",
-            dataTypeEnum.time,
+            dataTypeEnum.date,
             req.body.endTime
           ),
           genericFunc.inputparams(

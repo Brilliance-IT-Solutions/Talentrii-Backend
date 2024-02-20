@@ -7,11 +7,12 @@ module.exports = Object.freeze({
     authenticationFailed:'Authentication Failed',
 
    // S3 AWS Bucket Credentials
-    S3_BUCKET_NAME:'dutchuppblob',
-    S3_IAM_USER_KEY:'AKIAQ2PNGS2LK5VNOOGC',
-    S3_IAM_USER_SECRET:'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',
+    S3_BUCKET_NAME:'talentrii-bucket',
+    S3_IAM_USER_KEY:'AKIAZI2LH5QHYCJLM4SI',
+    S3_IAM_USER_SECRET:'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',
+    REGION:"us-east-1",
 
-    awsBucketLocationProfile: 'https://dutchuppblob.s3.amazonaws.com/',
+    awsBucketLocationProfile: 'https://d2q26ndm07dl99.cloudfront.net/',
     blobRouter: '/router/blob/uploadfile',
     defaultImage : 'https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png'
 });

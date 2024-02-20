@@ -35,7 +35,8 @@ module.exports = Object.freeze({
         proc_getFollowing_By_UserId:"proc_getFollowing_By_UserId",
         proc_getFollowers_By_UserId:"proc_getFollowers_By_UserId",
         proc_getuser_status:"proc_getuser_status",
-        proc_mutualFriends:"proc_mutualFriends"
+        proc_mutualFriends:"proc_mutualFriends",
+        proc_saved_challange:"proc_saved_challenge"
     },
 
     errorEnum: {
@@ -60,7 +61,9 @@ module.exports = Object.freeze({
         proc_getFollowing_By_UserId:"ERROR_GETTING_FOLLOWING",
         proc_getFollowers_By_UserId:"ERROR_GETTING_FOLLOWERS",
         proc_getuser_status:"ERROR_USER_STATUS",
-        proc_mutualFriends:"ERROR_GETTING_MUTUAL_FRIENDS"
+        proc_mutualFriends:"ERROR_GETTING_MUTUAL_FRIENDS",
+        proc_saved_challange:"ERROR_SAVING_CHALLANGE"
+
     }
 })
 

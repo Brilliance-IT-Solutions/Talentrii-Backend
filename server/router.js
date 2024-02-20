@@ -11,6 +11,7 @@ const checkFileSizeBasedOnType = require("../server/middleware/filesize")
 const privacyDB = require("../server/controllersDB/createPrivacyDB")
 const getPrivacyDB = require("../server/controllersDB/getPrivacyDB");
 const uploadVideo = require("./controllersDB/upload/apiVideo")
+const uploadFile = require("../server/controllersDB/upload/uploadFileToAWS")
 const challengeLiked = require("./controllersDB/like/challengeLikedDB")
 const challengeCommented = require("./controllersDB/comment/challengeCommentedDB")
 const getCommensChallenge = require("./controllersDB/comment/getCommentsDataDB")
@@ -23,9 +24,10 @@ const searchApiDB = require("../server/controllersDB/searchApiDB")
 const FollowUserDB = require("./controllersDB/follower/FollowUserDB")
 const getFollowersByUserIdDataDB = require("./controllersDB/follower/getFollowersByUserId")
 const getMutualFriends = require("./controllersDB/follower/mutualFriends")
+const saveChallenge = require("../server/controllersDB/saved/saveChallengeDB")
 
 router.get('/', function (req, res, next) {
-    res.send('SERVER STARTED again');
+    res.send('SERVER STARTED');
 });
 
 router.post('/login', login.loginDB)
@@ -36,6 +38,7 @@ router.post('/privacy',authenticate , privacyDB.privacyDB)
 router.get('/privacy',authenticate, getPrivacyDB.getPrivacyDB)
 router.delete('/delete/:id',authenticate, deleteFile.deleteFileDB)
 router.post('/upload' ,authenticate,upload.array('files',7), uploadVideo.uploadVideo)
+router.post('/uploadFile' ,authenticate,upload.array('files',7), uploadFile.uploadFile)
 router.post('/likechallenge' , authenticate,challengeLiked.challengeLikedDB)
 router.post('/commentChallenge' , authenticate,challengeCommented.challengeCommentedDB)
 router.get('/getcommentChallenge' , authenticate,getCommensChallenge.getCommentsDataDB)
@@ -48,5 +51,7 @@ router.get("/search", authenticate ,searchApiDB.searchApiDB)
 router.post("/follow", authenticate ,FollowUserDB.FollowUserDB)
 router.get("/followers", authenticate ,getFollowersByUserIdDataDB.getFollowersByUserIdDataDB)
 router.get("/mutual-friends", authenticate ,getMutualFriends.getMutualFriendsDataDB)
+router.post("/savechallenge", authenticate ,saveChallenge.challengeSavedDB)
+
 
 module.exports = router;

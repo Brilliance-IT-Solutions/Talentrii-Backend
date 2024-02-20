@@ -27,30 +27,38 @@ var sqlDb = () => {
                         let search = d.replace(/(^"|"$)/g, '');
                         element.value = search
                     }
-                    (counter == 0) ? params = '"' + element.value + '"' : params = params + ' , ' + '"' + element.value + '"'
+                    if(element.value === null || element.dataType === "Bit"){
+                        (counter == 0) ? params = '"' + element.value + '"' : params = params + ' , ' + '' + element.value + ''
+                    }else{
+                        (counter == 0) ? params = '"' + element.value + '"' : params = params + ' , ' + '"' + element.value + '"'
+                    }
                     counter += 1
                 })
-
                 if((procName !== procedureEnum.proc_login && procName !== procedureEnum.proc_signUp)){
-                 const {statusResult, statusReason}= await checkUserStatus(connection,req.user?.id,procedureEnum.proc_getuser_status)
-                 if(statusResult === 1){
-                     connection.query(`${"CALL " + procName + "(" + params + ")"}`, (err, result) => {
-                        if (err) throw errroFunc(err);
-                         // if (err) {
-                         //     errroFunc(err);
-                         //     return;
-                         // }
-                         responseBack(result)
-                         connection.end();
-     
-                     });
-                 }
-                 else if(statusResult === 2){  
-                    errroFunc({message:statusReason})
-                 }
-                 else if(statusResult === 3){
-                    errroFunc({message:statusReason})
-                 }
+                    try {
+                        const {statusResult, statusReason}= await checkUserStatus(connection,req.user?.id,procedureEnum.proc_getuser_status)
+                        if(statusResult === 1){
+                            connection.query(`${"CALL " + procName + "(" + params + ")"}`, (err, result) => {
+                               if (err) throw errroFunc(err);
+                                // if (err) {
+                                //     errroFunc(err);
+                                //     return;
+                                // }
+                                responseBack(result)
+                                connection.end();
+            
+                            });
+                        }
+                        else if(statusResult === 2){  
+                           errroFunc({message:statusReason})
+                        }
+                        else if(statusResult === 3){
+                           errroFunc({message:statusReason})
+                        }
+        
+                    } catch (error) {
+                        return errroFunc(error)
+                    }
             }
             else{
                 connection.query(`${"CALL " + procName + "(" + params + ")"}`, (err, result) => {
@@ -81,14 +89,16 @@ async function checkUserStatus(connection,userId,procedure){
     return new Promise((resolve, reject) => {
     connection.query(`${"CALL " + procedure + "(" + userId + ")"}`, (err, result) => {
         if (err) throw err;
-       if(result.length>0){
+       if(result[0][0]?.status){
         statusResult = result[0][0].status
         statusReason = result[0][0].statusReason
+        return resolve({statusResult,statusReason})
        }
-        resolve({statusResult,statusReason})
+       return reject({message:"userId doesn't exists"})
      });
     })
 }else{
+    connection.end()
     return {error:"userId missing"}
 }
 }
