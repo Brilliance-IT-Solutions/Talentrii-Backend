@@ -12,18 +12,14 @@ const sharp = require('sharp')
 const fluentffmpeg = require("fluent-ffmpeg");
 const aws = require("aws-sdk");
 const s3 = new aws.S3();
-
-require('dotenv').config({
-  path: `${process.env.NODE_ENV}.env`
-});
-
 const { uploadSchema } = require("../../schemas/uploadSchema");
 const genericFunctions = require("../../utility/genericFunctions");
+
 aws.config.update({
    secretAccessKey: process.env.S3_IAM_USER_SECRET,
    accessKeyId: process.env.S3_IAM_USER_KEY,
   correctClockSkew: true,
-  region:constants.REGION
+  region:process.env.REGION
 });
 
 const uploadFile = async (req, res, next) => {
@@ -68,28 +64,28 @@ const uploadFile = async (req, res, next) => {
             type:file.mimetype,
            }
            
-            processedFiles.push(obj); 
+          processedFiles.push(obj); 
     
         } else if (file.mimetype.startsWith('video')) {
     
-          const thumbnail = await generateVideoThumbnail(file.buffer);
+          const thumbnail = await generateVideoThumbnail(file.buffer);          
           const compressedVideo = await compressVideo(file.buffer, file.originalname);
 
           // Upload video thumbnail and compressed video to AWS S3
-          const thumbnailKey = `videos/thumbnails/${file.originalname}`;
+          var lastIndex = file.originalname.lastIndexOf(".");
+          var newFilename = file.originalname.substring(0, lastIndex);
+          const thumbnailKey = `videos/thumbnails/${newFilename}.jpg`;        
+          const compressedVideoKey = `videos/compressed/${file.originalname}`;
          
-           const compressedVideoKey = `videos/compressed/${file.originalname}`;
+          const thumbnailVideo = await uploadToS3(thumbnailKey, thumbnail, 'image/jpg');
+          const compressedVideoFile =  await uploadToS3(compressedVideoKey, compressedVideo, 'video/mp4');
 
-         
-           const thumbnailVideo = await uploadToS3(thumbnailKey, thumbnail, 'image/png');
-          const compressedVideoFile =  await uploadToS3(compressedVideoKey, compressedVideo, 'video/mp4');   
           const obj = {
             thumbnailurl : `${constants.awsBucketLocationProfile}${thumbnailVideo.key}`,
             originalurl : `${constants.awsBucketLocationProfile}${compressedVideoFile.key}`,
             type:file.mimetype,
-           }
-         
-            processedFiles.push(obj); 
+           }       
+          processedFiles.push(obj); 
         }
       }
        response = {
@@ -124,6 +120,8 @@ async function processImage(imageBuffer) {
 async function generateVideoThumbnail(videoBuffer) {
   return new Promise((resolve, reject) => {
     const tempFileName = 'temp.mp4';
+    const outputFormat = path.extname(tempFileName) === '.mp4' ? 'jpg' : 'png';
+    const outputFileName = `output.${outputFormat}`;
 
     fs.writeFileSync(tempFileName, videoBuffer);
 
@@ -132,13 +130,16 @@ async function generateVideoThumbnail(videoBuffer) {
       .frames(1)
       .toFormat('image2')
       .on('end', () => {
-        const thumbnail = fs.readFileSync('output.png');
+        const thumbnail = fs.readFileSync(outputFileName);
         fs.unlinkSync(tempFileName);
-        fs.unlinkSync('output.png');
+        fs.unlinkSync(outputFileName);
         resolve(thumbnail);
       })
-      .on('error', (err) => reject(err))
-      .output('output.png')
+      .on('error', (err) => {
+        fs.unlinkSync(tempFileName);
+        reject(err);
+      })
+      .output(outputFileName)
       .run();
   });
 }
@@ -168,7 +169,7 @@ async function compressVideo(videoBuffer) {
 async function uploadToS3(key, file, mimetype) {
   let uploadedData
   const params = {
-    Bucket: "talentrii-bucket",
+    Bucket: constants.S3_BUCKET_NAME,
     Key: key,
     Body: file,
     ContentType: mimetype,

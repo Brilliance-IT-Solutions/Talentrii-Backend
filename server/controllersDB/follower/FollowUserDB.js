@@ -21,7 +21,7 @@ const FollowUserDB = () => {
             const inputObject = [
                 genericFunc.inputparams("ByUser", dataTypeEnum.int, req.user.id),
                 genericFunc.inputparams("toUser", dataTypeEnum.int, req.body.toUser),
-                genericFunc.inputparams("isFollow", dataTypeEnum.varChar, req.body.isFollow),
+                genericFunc.inputparams("isFollow", dataTypeEnum.bit, req.body.isFollow),
             ]
 
             sqlConnect.connectDb(req, errFn, procedureEnum.proc_Follow_User, inputObject, errorEnum.proc_Follow_User, function (result) {

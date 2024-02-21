@@ -6,10 +6,5 @@ module.exports = Joi.object({
     "string.empty": `toUser cannot be an empty field`,
     "any.required": `toUser is a required field`,
   }),
-  isFollow: Joi.string().required().messages({
-    "string.base": `isFollow should be string`,
-    "string.empty": `isFollow cannot be an empty field`,
-    "any.required": `isFollow is a required field`,
-  }),
-
+  isFollow: Joi.number().valid(1,0).required()
 })

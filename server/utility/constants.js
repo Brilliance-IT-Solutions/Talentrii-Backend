@@ -5,7 +5,7 @@ module.exports = Object.freeze({
     JWTokenKey: process.env.ACCESS_TOKEN_SECRET,
     inValidToken: 'Your session has expired. Please login again to continue.',
     authenticationFailed:'Authentication Failed',
-
+    S3_BUCKET_NAME:'talentrii-bucket',
     awsBucketLocationProfile: 'https://d2q26ndm07dl99.cloudfront.net/',
     blobRouter: '/router/blob/uploadfile',
     defaultImage : 'https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png'

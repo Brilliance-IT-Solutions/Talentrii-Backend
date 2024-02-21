@@ -60,9 +60,9 @@
               data.forEach((item)=>{
                 challenge = JSON.parse(item['challenge'])
                 creator = JSON.parse(item['creator'])
-                media = JSON.parse(item['media'])
-                
-                let foundChallenge = output_data.find(obj => obj.challenge.id === challenge.id);
+                media = JSON.parse(item['media'])    
+                          
+                let foundChallenge = output_data.find(obj => obj?.challenge?.id === challenge?.id);
                   if (!foundChallenge) {
                       foundChallenge = {
                           challenge: {
@@ -75,7 +75,13 @@
                               noOfShares: "0",
                               isAlreadySaved: false,
                               isAlreadyJoined: false,
-                              isAlreadyLiked:item.isLiked
+                              isAlreadyLiked:item.isLiked,
+                              startDate: challenge.startDate,
+                              endDate: challenge.endDate,
+                              startTime: challenge.startTime,
+                              endTime:challenge.endTime,
+                              timeCounter: challenge.timeCounter,
+                              units: challenge.units
                           },
                           creator: {
                               id: creator.id,
@@ -99,37 +105,6 @@
               
               return output_data
               
-              },
-
-            findDuplicates : async (data) => {
-                const output = {};
-                data.forEach((obj) => {
-                  const parsedData = obj.media ? JSON.parse(obj.media) : obj;
-                  const key = parsedData.categoryId
-                  if (!output[key]) {
-                    output[key] = [];
-                  }
-                  const convertedObj =
-                    obj.constructor.name === "RowDataPacket" ? { ...obj } : obj;
-                  output[key].push(convertedObj);
-                });
-                const resultArrays = Object.values(output).map((arr, id) => ({
-                  id,
-                  inner: arr,
-                }));
-              
-                return resultArrays.reverse();
-              },
-
-               includeCommentCount : (nestedArray, array2) =>{
-                return nestedArray.map(outerObj => ({
-                  ...outerObj,
-                  inner: outerObj.inner.map(innerObj => {
-                    const parsedData = innerObj.media ? JSON.parse(innerObj.media) : innerObj;
-                    const matchingObject = array2.find(obj =>  obj.id === outerObj.id && obj.inner.some(i => i.categoryId === parsedData.categoryId));
-                    return matchingObject ? { ...innerObj, comment_count: matchingObject.inner.find(i => i.categoryId === parsedData.categoryId).comments_count } : innerObj;
-                  }),
-                }));
               },
 
             validator : (data, schema,errFn)=>{

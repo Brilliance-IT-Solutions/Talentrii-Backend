@@ -64,17 +64,4 @@ const getChallengeByUserIdDB = () =>{
     
 }
 
-// async function groupChallenges(arr) {
-//     const today = new Date().toString().slice(0, 10); 
-//     const groupedChallenges = {}; 
-//     for (const obj of arr) {
-//       const category = obj.category;
-//       const startDate = obj.startDate?.toString().slice(0, 10);
-//       const targetKey = startDate === today ? "upcomingChallenge" : "pastChallenge";
-//       groupedChallenges[category] ??= { upcomingChallenge: [], pastChallenge: [] }; 
-//       groupedChallenges[category][targetKey].push(obj);
-//     }
-//     return groupedChallenges;
-//   }
-
 module.exports= getChallengeByUserIdDB();
