@@ -14,8 +14,8 @@ jobs:
 
     steps:
     - name: Pull Docker image
-      run: sudo docker pull varsubham111111/cicd-pipeline:latest
+      run: sudo docker pull jeevanbit/talentrii-backend:latest
     - name: Delete Old docker container
       run: sudo docker rm -f cicd-pipeline-container || true
     - name: Run Docker Container
-      run: sudo docker run -d -p 8080:8080 --name cicd-pipeline-container varsubham111111/cicd-pipeline
+      run: sudo docker run -d -p 8080:8080 --name cicd-pipeline-container jeevanbit/talentrii-backend
