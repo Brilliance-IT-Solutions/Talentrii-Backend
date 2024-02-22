@@ -41,7 +41,7 @@ const getUserDetailDataDB = () => {
 
                const response = {
                   message: data.message,
-                  data: data,
+                  data: data[0],
                 };
                 successFn(response);
               } else {

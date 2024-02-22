@@ -43,7 +43,7 @@ const getChallengeByChallengeId = () => {
                 const newarray = await genericFunc.MediaExtractor(result[0])
                 const response = {
                    message: data.message,
-                   data: newarray
+                   data: newarray[0]
                  };
                  successFn(response);
               } else {

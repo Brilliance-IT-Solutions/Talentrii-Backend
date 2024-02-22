@@ -42,13 +42,12 @@ const getDashboardDataDB = () => {
           if (result.length > 0) {
             if (result[0]) {
               let data = result[0];
-              // let data2 = result[1];
               if (data[0].message === "Success") {
                const newarray = await genericFunc.MediaExtractor(result[0]);
                const response = {
                   message: data.message,
                   data: newarray,
-                  pagination:{totalCount:data[0].total_count,startIdx:startIdx,pageSize:pageSize}
+                  pagination:{totalCount:data[0].totalCount,startIdx:startIdx,pageSize:pageSize}
                 };
                 successFn(response);
               } else {

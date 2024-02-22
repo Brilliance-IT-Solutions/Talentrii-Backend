@@ -37,7 +37,7 @@ const getChallengeByUserIdDB = () =>{
                         if(result[0]){
                             let data = result[0]
                             if(data.length > 0 && (data[0].message = "Challenge Success")){
-                                const media = await genericFunctions.MediaExtractor1(result[0])
+                                const media = await genericFunctions.addMediaInChallenges(result[0])
                                 let response={
                                     "message":"Challenge Succeed",
                                     "data":media,

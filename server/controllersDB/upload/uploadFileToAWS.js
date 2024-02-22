@@ -15,11 +15,15 @@ const s3 = new aws.S3();
 const { uploadSchema } = require("../../schemas/uploadSchema");
 const genericFunctions = require("../../utility/genericFunctions");
 
+aws.config.credentials = new aws.SharedIniFileCredentials({
+  profile: 'Jeevan-bit',
+});
+
 aws.config.update({
-   secretAccessKey: process.env.S3_IAM_USER_SECRET,
-   accessKeyId: process.env.S3_IAM_USER_KEY,
+   secretAccessKey: constants.S3_IAM_USER_SECRET,
+   accessKeyId: constants.S3_IAM_USER_KEY,
   correctClockSkew: true,
-  region:process.env.REGION
+  region:constants.REGION
 });
 
 const uploadFile = async (req, res, next) => {
@@ -47,7 +51,6 @@ const uploadFile = async (req, res, next) => {
     } else {
       
       for (const file of req.files) {
-        console.log(file)
         if (file.mimetype.startsWith('image')) {
           const [thumbnail, compressedImage] = await processImage(file.buffer)
            // Upload thumbnail to AWS S3
@@ -59,8 +62,9 @@ const uploadFile = async (req, res, next) => {
            const compressedImageFile = await uploadToS3(compressedImageKey, compressedImage, file.mimetype);
            
            const obj = {
-            thumbnailurl : `${constants.awsBucketLocationProfile}${thumbnailImage.key}`,
-            originalurl : `${constants.awsBucketLocationProfile}${compressedImageFile.key}`,
+            url : `${constants.awsBucketLocationProfile}`,
+            thumbnailurl : `${thumbnailImage.key}`,
+            originalurl : `${compressedImageFile.key}`,
             type:file.mimetype,
            }
            
@@ -81,8 +85,9 @@ const uploadFile = async (req, res, next) => {
           const compressedVideoFile =  await uploadToS3(compressedVideoKey, compressedVideo, 'video/mp4');
 
           const obj = {
-            thumbnailurl : `${constants.awsBucketLocationProfile}${thumbnailVideo.key}`,
-            originalurl : `${constants.awsBucketLocationProfile}${compressedVideoFile.key}`,
+            url : `${constants.awsBucketLocationProfile}`,
+            thumbnailurl : `${thumbnailVideo.key}`,
+            originalurl : `${compressedVideoFile.key}`,
             type:file.mimetype,
            }       
           processedFiles.push(obj); 

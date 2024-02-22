@@ -73,14 +73,14 @@
                               noOfComments: item.comments_count,
                               totalCount:item.total_count,
                               noOfShares: "0",
-                              isAlreadySaved: false,
+                              isAlreadySaved: item.isSaved,
                               isAlreadyJoined: false,
                               isAlreadyLiked:item.isLiked,
                               startDate: challenge.startDate,
                               endDate: challenge.endDate,
                               startTime: challenge.startTime,
                               endTime:challenge.endTime,
-                              timeCounter: challenge.timeCounter,
+                              timerCounter: challenge.timerCounter,
                               units: challenge.units
                           },
                           creator: {
@@ -90,13 +90,15 @@
                               location: creator.location,
                               isFollowed: creator.isFollow
                           },
-                          media: []
+                          media: [],
+                          comments:item.latest_comments
                       };
                       output_data.push(foundChallenge);
                   }
               
                   foundChallenge.media.push({
                       id: media?.id,
+                      url:constants.awsBucketLocationProfile,
                       type: media?.type,
                       thumb: media?.thumbnail_url,
                       original:media?.original_url
@@ -125,7 +127,7 @@
             return false
         },
 
-        MediaExtractor1 : async (data)=>{
+        addMediaInChallenges : async (data)=>{
           const output_data = [];
           let media
            data.forEach((item)=>{
@@ -142,6 +144,7 @@
            
                foundChallenge.media.push({
                    id: media?.id,
+                   url:constants.awsBucketLocationProfile,
                    type: media?.type,
                    thumb: media?.thumbnail_url,
                    original:media?.original_url
