@@ -27,7 +27,7 @@ const getMutualFriends = require("./controllersDB/follower/mutualFriends")
 const saveChallenge = require("../server/controllersDB/saved/saveChallengeDB")
 
 router.get('/', function (req, res, next) {
-    res.send('SERVER STARTED 1234');
+    res.send('SERVER STARTED 12345');
 });
 
 router.post('/login', login.loginDB)
