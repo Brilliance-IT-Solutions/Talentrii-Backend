@@ -29,7 +29,9 @@ const editChallengeDB = require("../server/controllersDB/challenge/editChallenge
 
 router.get('/', function (req, res, next) {
     res.send('SERVER STARTED', DB_NAME='b76kvbmwwyvn66ik9frb');
-});
+})
+
+
 
 router.post('/login', login.loginDB)
 router.post('/signUp', signUp.signUpDB)
