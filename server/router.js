@@ -4,7 +4,7 @@ const authenticate = require('../server/middleware/authenticate')
 const login = require('./controllersDB/auth/loginDB')
 const signUp = require('./controllersDB/auth/signUpDB')
 const upload = require("../server/middleware/image-uploader")
-const deleteFile = require('../server/controllersDB/deleteFileDB')
+const deleteCommentDB = require('./controllersDB/comment/deleteCommentDB')
 const challange = require('./controllersDB/challenge/createChallangeDB')
 const dashboard = require('./controllersDB/dashboard/getDashboardDataDB')
 const checkFileSizeBasedOnType = require("../server/middleware/filesize")
@@ -25,9 +25,10 @@ const FollowUserDB = require("./controllersDB/follower/FollowUserDB")
 const getFollowersByUserIdDataDB = require("./controllersDB/follower/getFollowersByUserId")
 const getMutualFriends = require("./controllersDB/follower/mutualFriends")
 const saveChallenge = require("../server/controllersDB/saved/saveChallengeDB")
+const editChallengeDB = require("../server/controllersDB/challenge/editChallengeDB")
 
 router.get('/', function (req, res, next) {
-    res.send('SERVER STARTED 123');
+    res.send('SERVER STARTED', DB_NAME='b76kvbmwwyvn66ik9frb');
 });
 
 router.post('/login', login.loginDB)
@@ -36,7 +37,7 @@ router.post('/createChallange', authenticate,challange.createChallangeDB)
 router.get('/getDashboardData', authenticate, dashboard.getDashboardDataDB)
 router.post('/privacy',authenticate , privacyDB.privacyDB)
 router.get('/privacy',authenticate, getPrivacyDB.getPrivacyDB)
-router.delete('/delete/:id',authenticate, deleteFile.deleteFileDB)
+router.delete('/delete',authenticate, deleteCommentDB.deleteCommentDB)
 router.post('/upload' ,authenticate,upload.array('files',7), uploadVideo.uploadVideo)
 router.post('/uploadFile' ,authenticate,upload.array('files',7), uploadFile.uploadFile)
 router.post('/likechallenge' , authenticate,challengeLiked.challengeLikedDB)
@@ -51,7 +52,8 @@ router.get("/search", authenticate ,searchApiDB.searchApiDB)
 router.post("/follow", authenticate ,FollowUserDB.FollowUserDB)
 router.get("/followers", authenticate ,getFollowersByUserIdDataDB.getFollowersByUserIdDataDB)
 router.get("/mutual-friends", authenticate ,getMutualFriends.getMutualFriendsDataDB)
-router.post("/savechallenge", authenticate ,saveChallenge.challengeSavedDB)
+router.post("/savechallenge", authenticate ,saveChallenge.challengeSavedDB),
+router.post("/editChallenge",authenticate,editChallengeDB.editChallengeDB)
 
 
 module.exports = router;
