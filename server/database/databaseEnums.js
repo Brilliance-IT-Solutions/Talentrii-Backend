@@ -19,7 +19,7 @@ module.exports = Object.freeze({
         proc_create_challange: 'proc_create_challange',
         proc_get_dashboard_data: 'proc_get_dashboard_data',
         proc_upload_media: 'proc_upload_media',
-        proc_delete_file: 'proc_delete_file',
+        proc_delete_comments: 'proc_delete_comments',
         proc_create_challenge_privacy: 'proc_create_challenge_privacy',
         proc_getChallenge_Privacy: 'proc_getChallenge_Privacy',
         proc_like_challange:'proc_like_challange',
@@ -36,7 +36,8 @@ module.exports = Object.freeze({
         proc_getFollowers_By_UserId:"proc_getFollowers_By_UserId",
         proc_getuser_status:"proc_getuser_status",
         proc_mutualFriends:"proc_mutualFriends",
-        proc_saved_challange:"proc_saved_challenge"
+        proc_saved_challange:"proc_saved_challenge",
+        proc_edit_challenge:"proc_edit_challenge"
     },
 
     errorEnum: {
@@ -45,7 +46,7 @@ module.exports = Object.freeze({
         proc_create_challange: 'CREATE-CHALLANGE-ERROR',
         proc_get_dashboard_data: 'GET-DASHBOARD-DATA-ERROR',
         proc_upload_media:'UPLOAD_MEDIA_ERROR',
-        proc_delete_file: 'DELETE_MEDIA_ERROR',
+        proc_delete_comments: 'DELETE_COMMENTS_ERROR',
         proc_create_challenge_privacy:'CREATE_CHALLENGE_PRIVACY',
         proc_getChallenge_Privacy: 'GET_CHALLENGE_PRIVACY',
         proc_like_challange:"LIKE_CHALLENGE_ERROR",
@@ -62,7 +63,8 @@ module.exports = Object.freeze({
         proc_getFollowers_By_UserId:"ERROR_GETTING_FOLLOWERS",
         proc_getuser_status:"ERROR_USER_STATUS",
         proc_mutualFriends:"ERROR_GETTING_MUTUAL_FRIENDS",
-        proc_saved_challange:"ERROR_SAVING_CHALLANGE"
+        proc_saved_challange:"ERROR_SAVING_CHALLANGE",
+        proc_edit_challenge:"ERROR_UPDATING_CHALLENGE"
 
     }
 })

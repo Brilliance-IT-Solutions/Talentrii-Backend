@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require('joi').extend(require('@joi/date'));
 
 const signUpSchema = Joi.object({
   firstName: Joi.string().required().max(20).min(3).messages({
@@ -68,7 +68,18 @@ const signInSchema = Joi.object({
   }),
 })
 
+const editProfileSchema = Joi.object({
+  userId:Joi.number().integer().min(1).required(),
+  firstName:Joi.string().max(20).min(3),
+  lastName:Joi.string().max(20).min(3),
+  userName:Joi.string().max(20).min(4),
+  profileImage:Joi.array().items(Joi.object()),
+  contact:Joi.number().min(10).max(10),
+  DOB:Joi.date().utc().allow(null)
+})
+
 module.exports ={
     signUpSchema,
-    signInSchema
+    signInSchema,
+    editProfileSchema
 }

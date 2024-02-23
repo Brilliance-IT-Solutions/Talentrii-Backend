@@ -3,6 +3,7 @@ const genericFunc = require('../../utility/genericFunctions');
 const jsonResponse = require('../../utility/jsonResponse')
 const { dataTypeEnum, procedureEnum, errorEnum } = require('../../database/databaseEnums');
 const statusCode = require("http-status-codes")
+const {editProfileSchema} = require("../../schemas/userSchema")
 
 const editProfileDB = () => {
     return {
@@ -13,15 +14,20 @@ const editProfileDB = () => {
             const errFn = (err,statusCode) => {
                 jsonResponse.errorHandler(res, next, err,statusCode)
             }
+
+            req.body.userId = req.user.id
+            if(genericFunc.validator(req.body,editProfileSchema,errFn)== true)
+            return;
+
             const inputObject = [
                 genericFunc.inputparams('userId', dataTypeEnum.varChar, req.user.id),
-                genericFunc.inputparams('firstName', dataTypeEnum.varChar, req.body?.firstName),
-                genericFunc.inputparams('lastName', dataTypeEnum.varChar, req.body?.lastName),
-                genericFunc.inputparams('userName', dataTypeEnum.varChar, req.body?.userName),
-                genericFunc.inputparams('emailId', dataTypeEnum.varChar, req.body?.emailId),
+                genericFunc.inputparams('firstName', dataTypeEnum.varChar, req.body?.firstName ?  req.body?.firstName : null),
+                genericFunc.inputparams('lastName', dataTypeEnum.varChar, req.body?.lastName ? req.body?.lastName:null),
+                genericFunc.inputparams('userName', dataTypeEnum.varChar, req.body?.userName ? req.body?.userName : null),
+                genericFunc.inputparams('emailId', dataTypeEnum.varChar, req.body?.emailId ? req.body?.emailId : null),
                 // genericFunc.inputparams('profileImage', dataTypeEnum.varChar, req.body?.profileImage),
-                genericFunc.inputparams('contact', dataTypeEnum.varChar, req.body?.contact),
-                genericFunc.inputparams('DOB', dataTypeEnum.varChar, req.body?.DOB)
+                genericFunc.inputparams('contact', dataTypeEnum.varChar, req.body?.contact ? req.body?.contact : null),
+                genericFunc.inputparams('DOB', dataTypeEnum.varChar, req.body?.DOB ? req.body?.DOB : null)
             ]
 
             sqlConnect.connectDb(req, errFn, procedureEnum.proc_editProfile, inputObject, errorEnum.proc_editProfile, function (result) {
@@ -29,8 +35,9 @@ const editProfileDB = () => {
                     if (result[0][0]) {
                         let data = result[0][0]
                         if (data.message === 'profile updated successfully') {
-                            let media = req.body.profileImage;
-                            if (media.length > 0) {
+                            let media = req.body?.profileImage;
+                            if (media?.length > 0) {
+                              let count = 0;
                               media.forEach((element) => {
                                 const inputObject2 = [
                                   genericFunc.inputparams(
@@ -72,17 +79,21 @@ const editProfileDB = () => {
                                   inputObject2,
                                   errorEnum.proc_upload_media,
                                   function (result) {
+                                    count++;
+                                    if (count === media.length) {
                                     if (result.length > 0) {
                                       if (result[0]) {
-                                        let data = result[0];
-                                        if (data[0].message === "Media uploaded") {
+                                        let dataMedia = result[0];
+                                        if (dataMedia[0].message === "Media uploaded") {
                                           response = {
-                                            message: data[0].message,
-                                            // 'token': genericFunc.generateTokenLink(data),
+                                            message: data.message,
+                                            "data":data
+                                            
                                           };
+                                          successFn(response);
                                         } else {
                                           response = {
-                                            message: data[0].message,
+                                            message: data.message,
                                           };
                                           errFn(
                                             response,
@@ -92,20 +103,19 @@ const editProfileDB = () => {
                                       }
                                     }
                                   }
+                                  }
                                 );
                               });
+                            }else{
+
+                              response = {
+                                  'message': data.message,
+                                  'data': data
+                              }
+                              successFn(response);
                             }
-                            response = {
-                                'message': data.message,
-                                'data': data
-                            }
-                            successFn(response);
-                        } else {
-                            response = {
-                                'message': data.message
-                            }
-                            errFn(response,statusCode.StatusCodes.BAD_REQUEST);
-                        }
+                        } 
+                  
                     }
                 }
             })

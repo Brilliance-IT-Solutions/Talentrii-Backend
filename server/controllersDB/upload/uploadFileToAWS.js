@@ -66,6 +66,7 @@ const uploadFile = async (req, res, next) => {
             thumbnailurl : `${thumbnailImage.key}`,
             originalurl : `${compressedImageFile.key}`,
             type:file.mimetype,
+            category:req.body.category
            }
            
           processedFiles.push(obj); 
@@ -89,6 +90,7 @@ const uploadFile = async (req, res, next) => {
             thumbnailurl : `${thumbnailVideo.key}`,
             originalurl : `${compressedVideoFile.key}`,
             type:file.mimetype,
+            category:req.body.category
            }       
           processedFiles.push(obj); 
         }

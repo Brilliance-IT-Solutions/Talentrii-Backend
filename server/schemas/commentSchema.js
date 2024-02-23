@@ -17,7 +17,15 @@ const getCommentsByChallengeIdSchema = Joi.object({
       })
 })
 
+const deleteCommentByIdSchema = Joi.object({
+  userId: Joi.number().required(),
+  id : Joi.number().integer().min(1).required()
+})
+
+
+
 module.exports = {
     addCommentsByChallengeIdSchema,
-    getCommentsByChallengeIdSchema
+    getCommentsByChallengeIdSchema,
+    deleteCommentByIdSchema
 }
