@@ -31,6 +31,7 @@ router.get('/', function (req, res, next) {
     res.send('SERVER STARTED check');
 })
 
+
 router.post('/login', login.loginDB)
 router.post('/signUp', signUp.signUpDB)
 router.post('/createChallange', authenticate,challange.createChallangeDB)
