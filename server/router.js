@@ -28,7 +28,7 @@ const saveChallenge = require("../server/controllersDB/saved/saveChallengeDB")
 const editChallengeDB = require("../server/controllersDB/challenge/editChallengeDB")
 
 router.get('/', function (req, res, next) {
-    res.send('SERVER STARTED 123', process.env.DB_NAME);
+    res.send('SERVER STARTED 1234', process.env.DB_NAME);
 })
 
 
