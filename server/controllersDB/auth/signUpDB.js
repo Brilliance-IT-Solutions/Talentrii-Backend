@@ -25,7 +25,7 @@ const signUpDB = () => {
                 genericFunc.inputparams('profileImage', dataTypeEnum.varChar, req.body.profileImage ? req.body.profileImage : constants.defaultImage),
             ]
 
-            sqlConnect.connectDb(req, errFn, procedureEnum.proc_signUp, inputObject, errorEnum.proc_signUp, function (result) {
+            sqlConnect.connectDb(req, errFn, procedureEnum.proc_post_signUp, inputObject, errorEnum.proc_post_signUp, function (result) {
                 let data = result[0][0]
                 if (data.message === 'Sign Up Success') {
                     response = {

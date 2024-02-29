@@ -62,9 +62,8 @@ const uploadFile = async (req, res, next) => {
            const compressedImageFile = await uploadToS3(compressedImageKey, compressedImage, file.mimetype);
            
            const obj = {
-            url : `${constants.awsBucketLocationProfile}`,
-            thumbnailurl : `${thumbnailImage.key}`,
-            originalurl : `${compressedImageFile.key}`,
+            thumbnailurl : `${constants.awsBucketLocationProfile}${thumbnailImage.key}`,
+            originalurl : `${constants.awsBucketLocationProfile}${compressedImageFile.key}`,
             type:file.mimetype,
             category:req.body.category
            }
@@ -86,9 +85,8 @@ const uploadFile = async (req, res, next) => {
           const compressedVideoFile =  await uploadToS3(compressedVideoKey, compressedVideo, 'video/mp4');
 
           const obj = {
-            url : `${constants.awsBucketLocationProfile}`,
-            thumbnailurl : `${thumbnailVideo.key}`,
-            originalurl : `${compressedVideoFile.key}`,
+            thumbnailurl : `${constants.awsBucketLocationProfile}${thumbnailVideo.key}`,
+            originalurl : `${constants.awsBucketLocationProfile}${compressedVideoFile.key}`,
             type:file.mimetype,
             category:req.body.category
            }       

@@ -1,9 +1,9 @@
-const sqlConnect = require('../../database/connection');
-const genericFunc = require('../../utility/genericFunctions');
-const jsonResponse = require('../../utility/jsonResponse')
-const { dataTypeEnum, procedureEnum, errorEnum } = require('../../database/databaseEnums');
+const sqlConnect = require('../../server/database/connection');
+const genericFunc = require('../../server/utility/genericFunctions');
+const jsonResponse = require('../../server/utility/jsonResponse')
+const { dataTypeEnum, procedureEnumAdmin, errorEnumAdmin } = require('../../server/database/databaseEnums');
 const statusCode = require("http-status-codes")
-const {signInSchema} = require("../../schemas/userSchema")
+const {signInSchema} = require("../../server/schemas/userSchema")
 
 const loginDB = () => {
     return {
@@ -21,11 +21,12 @@ const loginDB = () => {
 
             const inputObject = [
                 genericFunc.inputparams('emailId', dataTypeEnum.varChar, req.body.emailId),
-                genericFunc.inputparams('password', dataTypeEnum.varChar, req.body.password ? genericFunc.encrypt(req.body.password):''),
+                genericFunc.inputparams('password', dataTypeEnum.varChar, req.body.password),
                 genericFunc.inputparams('authProvider', dataTypeEnum.varChar, req.body.authProvider)
             ]
 
-            sqlConnect.connectDb(req, errFn, procedureEnum.proc_post_login, inputObject, errorEnum.proc_post_login, function (result) {
+
+            sqlConnect.connectDb(req, errFn, procedureEnumAdmin.proc_admin_post_login, inputObject, errorEnumAdmin.proc_admin_post_login, function (result) {
                 if (result.length > 0) {
                     if (result[0][0]) {
                         let data = result[0][0]

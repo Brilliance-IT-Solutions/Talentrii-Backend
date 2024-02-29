@@ -30,7 +30,7 @@ const editProfileDB = () => {
                 genericFunc.inputparams('DOB', dataTypeEnum.varChar, req.body?.DOB ? req.body?.DOB : null)
             ]
 
-            sqlConnect.connectDb(req, errFn, procedureEnum.proc_editProfile, inputObject, errorEnum.proc_editProfile, function (result) {
+            sqlConnect.connectDb(req, errFn, procedureEnum.proc_update_Profile, inputObject, errorEnum.proc_update_Profile, function (result) {
                 if (result.length > 0) {
                     if (result[0][0]) {
                         let data = result[0][0]
@@ -75,9 +75,9 @@ const editProfileDB = () => {
                                 sqlConnect.connectDb(
                                   req,
                                   errFn,
-                                  procedureEnum.proc_upload_media,
+                                  procedureEnum.proc_post_uploadMedia,
                                   inputObject2,
-                                  errorEnum.proc_upload_media,
+                                  errorEnum.proc_post_uploadMedia,
                                   function (result) {
                                     count++;
                                     if (count === media.length) {

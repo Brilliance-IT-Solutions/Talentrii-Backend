@@ -27,7 +27,7 @@ const editChallengeDB = () =>{
                 genericFunctions.inputparams("description",dataTypeEnum.varChar,req.body.description ? req.body.description : null)
             ]
 
-            sqlConnect.connectDb(req,errFn,procedureEnum.proc_edit_challenge,inputObject,errorEnum.proc_edit_challenge,function (result){
+            sqlConnect.connectDb(req,errFn,procedureEnum.proc_update_Challenge,inputObject,errorEnum.proc_update_Challenge,function (result){
                 if(result){
                     if(result.length > 0){
                         if(result[0][0].message === "Challange Updated"){

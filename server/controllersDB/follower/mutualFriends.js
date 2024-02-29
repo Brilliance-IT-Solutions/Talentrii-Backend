@@ -32,9 +32,9 @@ const getMutualFriendsDataDB = () => {
       sqlConnect.connectDb(
         req,
         errFn,
-        procedureEnum.proc_mutualFriends,
+        procedureEnum.proc_get_mutualFriends,
         inputObject,
-        errorEnum.proc_mutualFriends,
+        errorEnum.proc_get_mutualFriends,
         async function (result) {
           if (result.length > 0) {
             if (result[0]) {

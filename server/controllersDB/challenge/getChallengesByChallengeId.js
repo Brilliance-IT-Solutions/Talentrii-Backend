@@ -31,9 +31,9 @@ const getChallengeByChallengeId = () => {
       sqlConnect.connectDb(
         req,
         errFn,
-        procedureEnum.proc_getChallenges_By_Id,
+        procedureEnum.proc_get_challengeDetailByChallengeId,
         inputObject,
-        errorEnum.proc_getChallenges_By_Id,
+        errorEnum.proc_get_challengeDetailByChallengeId,
         async function (result) {
           if (result.length > 0) {
             if (result[0]) {

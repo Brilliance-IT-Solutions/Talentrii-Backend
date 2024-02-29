@@ -24,7 +24,7 @@ const challengeCommentedDB = () => {
                 genericFunc.inputparams("comments", dataTypeEnum.varChar, req.body.comments)               
             ]
 
-            sqlConnect.connectDb(req, errFn, procedureEnum.proc_comment_challange, inputObject, errorEnum.proc_comment_challange, function (result) {
+            sqlConnect.connectDb(req, errFn, procedureEnum.proc_post_comment, inputObject, errorEnum.proc_post_comment, function (result) {
                 if (result.length > 0) {
                     if (result[0][0]) {
                         let data = result[0][0]

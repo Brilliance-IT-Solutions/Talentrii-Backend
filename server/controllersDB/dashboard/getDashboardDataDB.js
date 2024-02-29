@@ -35,9 +35,9 @@ const getDashboardDataDB = () => {
       sqlConnect.connectDb(
         req,
         errFn,
-        procedureEnum.proc_get_dashboard_data,
+        procedureEnum.proc_get_dashboardData,
         inputObject,
-        errorEnum.proc_get_dashboard_data,
+        errorEnum.proc_get_dashboardData,
         async function (result) {
           if (result.length > 0) {
             if (result[0]) {

@@ -1,5 +1,5 @@
 const responseBack = require('../utility/jsonResponse');
-const { procedureEnum } = require('./databaseEnums');
+const { procedureEnum,procedureEnumAdmin } = require('./databaseEnums');
 
 var sqlDb = () => {
     'use strict';
@@ -34,9 +34,9 @@ var sqlDb = () => {
                     }
                     counter += 1
                 })
-                if((procName !== procedureEnum.proc_login && procName !== procedureEnum.proc_signUp)){
+                if((procName !== procedureEnum.proc_post_login && procName !== procedureEnum.proc_post_signUp && procName !== procedureEnumAdmin.proc_admin_post_login)){
                     try {
-                        const {statusResult, statusReason}= await checkUserStatus(connection,req.user?.id,procedureEnum.proc_getuser_status)
+                        const {statusResult, statusReason}= await checkUserStatus(connection,req.user?.id,procedureEnum.proc_get_userStatus)
                         if(statusResult === 1){
                             connection.query(`${"CALL " + procName + "(" + params + ")"}`, (err, result) => {
                                if (err) throw errroFunc(err);

@@ -99,9 +99,9 @@ const createChallangeDB = () => {
         sqlConnect.connectDb(
           req,
           errFn,
-          procedureEnum.proc_create_challange,
+          procedureEnum.proc_post_createChallange,
           inputObject,
-          errorEnum.proc_create_challange,
+          errorEnum.proc_post_createChallange,
           function (result) {
             if (result.length > 0) {
               if (result[0]) {
@@ -148,9 +148,9 @@ const createChallangeDB = () => {
                       sqlConnect.connectDb(
                         req,
                         errFn,
-                        procedureEnum.proc_upload_media,
+                        procedureEnum.proc_post_uploadMedia,
                         inputObject2,
-                        errorEnum.proc_upload_media,
+                        errorEnum.proc_post_uploadMedia,
                         function (result) {
                           count++;
                           if (count === media.length) {

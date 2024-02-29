@@ -5,7 +5,8 @@ const port = process.env.PORT || 3000;
 const app = express();
 const router = require('./server/router')
 const dotenv = require('dotenv')
-const constants = require('./server/utility/constants')
+const constants = require('./server/utility/constants');
+const adminRouter = require('./admin/router/router');
 dotenv.config({
     path: `${process.env.NODE_ENV}.env`
 })
@@ -19,7 +20,7 @@ app.use(function (req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,POST,PUT");
-    res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+    res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers ,Authorization,token");
     next();
 });
 
@@ -37,6 +38,8 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use('/router', router);
+app.use('/admin', adminRouter);
+
 app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
 

@@ -23,7 +23,7 @@ const challengeLikedDB = () => {
                 genericFunc.inputparams("status", dataTypeEnum.bit, req.body.status)               
             ]
 
-            sqlConnect.connectDb(req, errFn, procedureEnum.proc_like_challange, inputObject, errorEnum.proc_like_challange, function (result) {
+            sqlConnect.connectDb(req, errFn, procedureEnum.proc_post_like, inputObject, errorEnum.proc_post_like, function (result) {
                 if (result) {
                     if (result[0][0]) {
                         let data = result[0][0]

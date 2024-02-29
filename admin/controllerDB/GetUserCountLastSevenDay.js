@@ -1,52 +1,54 @@
 const statusCode = require("http-status-codes");
-const sqlConnect = require("../../database/connection");
-const genericFunc = require("../../utility/genericFunctions");
-const jsonResponse = require("../../utility/jsonResponse");
+const sqlConnect = require("../../server/database/connection");
+const genericFunc = require("../../server/utility/genericFunctions");
+const jsonResponse = require("../../server/utility/jsonResponse");
 const {
   dataTypeEnum,
-  procedureEnum,
-  errorEnum,
-} = require("../../database/databaseEnums");
-const { userIdSchema } = require("../../schemas/userIdSchema");
+  procedureEnumAdmin,
+  errorEnumAdmin,
+} = require("../../server/database/databaseEnums");
+const { userIdSchema } = require("../../server/schemas/userIdSchema");
 
-const getUserDetailDataDB = () => {
+const getUserCountLastSevenDays = () => {
   return {
-    getUserDetailDataDB: async (req, res, next) => {
+    getUserCountLastSevenDays: async (req, res, next) => {
       const successFn = (result) => {
         jsonResponse.successHandler(res, next, result);
       };
       const errFn = (err, statusCode) => {
         jsonResponse.errorHandler(res, next, err, statusCode);
       };
-
+       req.query.userId = req.user.id
         if(genericFunc.validator(req.query,userIdSchema,errFn)== true)
         return;
-
       const inputObject = [
-        genericFunc.inputparams("userId", dataTypeEnum.varChar, req.query.userId),
+        genericFunc.inputparams("userId", dataTypeEnum.varChar, req.user.id),
+
       ];
 
       sqlConnect.connectDb(
         req,
         errFn,
-        procedureEnum.proc_get_userDetail,
+        procedureEnumAdmin.proc_admin_get_lastSevenDayUser,
         inputObject,
-        errorEnum.proc_get_userDetail,
+        errorEnumAdmin.proc_admin_get_lastSevenDayUser,
         async function (result) {
           if (result.length > 0) {
             if (result[0]) {
               let data = result[0];
 
-              if ((data[0]?.message === "User Detail Success")) {
+              if ((data[0]?.message === "User Success")) {
 
                const response = {
                   message: data.message,
-                  data: data[0],
+                  data: data
+                 
                 };
+
                 successFn(response);
               } else {
                 response = {
-                  message: data.message,
+                  message: data.message || 'No user Found',
                 };
                 errFn(response, statusCode.StatusCodes.UNAUTHORIZED);
               }
@@ -60,4 +62,4 @@ const getUserDetailDataDB = () => {
 
 
 
-module.exports = getUserDetailDataDB();
+module.exports = getUserCountLastSevenDays();

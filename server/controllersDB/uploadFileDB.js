@@ -32,7 +32,7 @@ const uploadFileDB = () => {
 
             ]
 
-            sqlConnect.connectDb(req, errFn, procedureEnum.proc_upload_media, inputObject, errorEnum.proc_upload_media, function (result) {
+            sqlConnect.connectDb(req, errFn, procedureEnum.proc_post_uploadMedia, inputObject, errorEnum.proc_post_uploadMedia, function (result) {
                 if (result.length > 0) {
                     if (result[0][0]) {
                         let data = result[0][0]

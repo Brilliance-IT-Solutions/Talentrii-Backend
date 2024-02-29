@@ -23,7 +23,7 @@ const challengeSavedDB = () => {
                 genericFunc.inputparams("saved", dataTypeEnum.bit, req.body.saved)               
             ]
 
-            sqlConnect.connectDb(req, errFn, procedureEnum.proc_saved_challange, inputObject, errorEnum.proc_saved_challange, function (result) {
+            sqlConnect.connectDb(req, errFn, procedureEnum.proc_post_saveChallenge, inputObject, errorEnum.proc_post_saveChallenge, function (result) {
                 if (result) {
                     if (result[0][0]) {
                         let data = result[0][0]

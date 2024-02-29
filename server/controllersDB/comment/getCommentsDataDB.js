@@ -36,9 +36,9 @@ const getCommentsDataDB = () => {
       sqlConnect.connectDb(
         req,
         errFn,
-        procedureEnum.proc_getcomments_challange,
+        procedureEnum.proc_get_comments,
         inputObject,
-        errorEnum.proc_getcomments_challange,
+        errorEnum.proc_get_comments,
         async function (result) {
           if (result.length > 0) {
             if (result[0]) {

@@ -43,9 +43,9 @@ const getFollowersByUserIdDataDB = () => {
       sqlConnect.connectDb(
         req,
         errFn,
-        procedureEnum.proc_getFollowers_By_UserId,
+        procedureEnum.proc_get_FollowerByUserId,
         inputObject,
-        errorEnum.proc_getFollowers_By_UserId,
+        errorEnum.proc_get_FollowerByUserId,
         async function (result) {
           if (result.length > 0) {
             if (result[0]) {

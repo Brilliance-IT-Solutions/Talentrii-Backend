@@ -14,60 +14,73 @@ module.exports = Object.freeze({
     },
     
     procedureEnum: {
-        proc_login: 'proc_login',
-        proc_signUp: 'proc_signUp',
-        proc_create_challange: 'proc_create_challange',
-        proc_get_dashboard_data: 'proc_get_dashboard_data',
-        proc_upload_media: 'proc_upload_media',
+        proc_post_login: 'proc_post_login',
+        proc_post_signUp: 'proc_post_signUp',
+        proc_post_createChallange: 'proc_post_createChallange',
+        proc_get_dashboardData: 'proc_get_dashboardData',
+        proc_post_uploadMedia: 'proc_post_uploadMedia',
+        proc_post_like:'proc_post_like',
+        proc_post_comment:'proc_post_comment',
+        proc_get_comments:'proc_get_comments',
+        proc_get_userDetail:'proc_get_userDetail',
+        proc_get_challengeDetailByChallengeId:"proc_get_challengeDetailByChallengeId",
+        proc_get_challengesByUserId:"proc_get_challengesByUserId",
+        proc_post_follow:"proc_post_follow",
+        proc_get_FollowerByUserId:"proc_get_FollowerByUserId",
+        proc_get_userStatus:"proc_get_userStatus",
+        proc_get_mutualFriends:"proc_get_mutualFriends",
+        proc_post_saveChallenge:"proc_post_saveChallenge",
         proc_delete_comments: 'proc_delete_comments',
+        proc_update_Profile:"proc_update_Profile",
+        proc_update_Challenge:"proc_update_Challenge",
         proc_create_challenge_privacy: 'proc_create_challenge_privacy',
         proc_getChallenge_Privacy: 'proc_getChallenge_Privacy',
-        proc_like_challange:'proc_like_challange',
-        proc_comment_challange:'proc_comment_challange',
-        proc_getcomments_challange:'proc_getcomments_challange',
-        proc_getuser_detail:'proc_getuser_detail',
         proc_purpose_challange:'proc_purpose_challange',
-        proc_editProfile:"proc_editProfile",
-        proc_getChallenges_By_Id:"proc_getChallengeDetail_ByChallengeId",
-        proc_getChallenges_By_UserId:"proc_getChallenges_By_UserId",
         proc_search_challenge:"proc_search_challenge",
-        proc_Follow_User:"proc_Follow_User",
-        proc_getFollowing_By_UserId:"proc_getFollowing_By_UserId",
-        proc_getFollowers_By_UserId:"proc_getFollowers_By_UserId",
-        proc_getuser_status:"proc_getuser_status",
-        proc_mutualFriends:"proc_mutualFriends",
-        proc_saved_challange:"proc_saved_challenge",
-        proc_edit_challenge:"proc_edit_challenge"
     },
 
     errorEnum: {
-        proc_login: 'LOGIN-ERROR',
-        proc_signUp: 'SIGN-UP-ERROR',
-        proc_create_challange: 'CREATE-CHALLANGE-ERROR',
-        proc_get_dashboard_data: 'GET-DASHBOARD-DATA-ERROR',
-        proc_upload_media:'UPLOAD_MEDIA_ERROR',
+        proc_post_login: 'LOGIN-ERROR',
+        proc_post_signUp: 'SIGN-UP-ERROR',
+        proc_post_createChallange: 'CREATE-CHALLANGE-ERROR',
+        proc_get_dashboardData: 'GET-DASHBOARD-DATA-ERROR',
+        proc_post_uploadMedia:'UPLOAD_MEDIA_ERROR',
+        proc_post_like:"LIKE_CHALLENGE_ERROR",
+        proc_post_comment:'COMMENT_CHALLENGE_ERROR',
+        proc_get_comments:'GETCOMMENTS_CHALLENGE_ERROR',
+        proc_get_userDetail:'GETUSER_DETAIL_ERROR',
+        proc_get_challengeDetailByChallengeId:"GET_CHALLENGE_BY_ID_ERROR",
+        proc_get_challengesByUserId:"GET_CHALLENGE_BY_USERID_ERROR",
+        proc_post_follow:"FOLLOW_USER_ERROR",
+        proc_get_FollowerByUserId:"ERROR_GETTING_FOLLOWERS",
+        proc_get_userStatus:"ERROR_USER_STATUS",
+        proc_get_mutualFriends:"ERROR_GETTING_MUTUAL_FRIENDS",
+        proc_post_saveChallenge:"ERROR_SAVING_CHALLANGE",
         proc_delete_comments: 'DELETE_COMMENTS_ERROR',
+        proc_update_Profile:"EDITPROFILE_ERROR",
+        proc_update_Challenge:"ERROR_UPDATING_CHALLENGE",
         proc_create_challenge_privacy:'CREATE_CHALLENGE_PRIVACY',
         proc_getChallenge_Privacy: 'GET_CHALLENGE_PRIVACY',
-        proc_like_challange:"LIKE_CHALLENGE_ERROR",
-        proc_comment_challange:'COMMENT_CHALLENGE_ERROR',
-        proc_getcomments_challange:'GETCOMMENTS_CHALLENGE_ERROR',
-        proc_getuser_detail:'GETUSER_DETAIL_ERROR',
         proc_purpose_challange:'PURPOSE_CHALLENGE_ERROR',
-        proc_editProfile:"EDITPROFILE_ERROR",
-        proc_getChallenges_By_Id:"GET_CHALLENGE_BY_ID_ERROR",
-        proc_getChallenges_By_UserId:"GET_CHALLENGE_BY_USERID_ERROR",
         proc_search_challenge:"SEARCH_CHALLENGE_ERROR",
-        proc_Follow_User:"FOLLOW_USER_ERROR",
-        proc_getFollowing_By_UserId:"ERROR_GETTING_FOLLOWING",
-        proc_getFollowers_By_UserId:"ERROR_GETTING_FOLLOWERS",
-        proc_getuser_status:"ERROR_USER_STATUS",
-        proc_mutualFriends:"ERROR_GETTING_MUTUAL_FRIENDS",
-        proc_saved_challange:"ERROR_SAVING_CHALLANGE",
-        proc_edit_challenge:"ERROR_UPDATING_CHALLENGE"
 
-    }
+    },
+
+    procedureEnumAdmin:{
+     proc_admin_post_login:"proc_admin_post_login",
+     proc_admin_get_allUser:"proc_admin_get_allUser",
+     proc_admin_get_lastSevenDayUser:"proc_admin_get_lastSevenDayUser"
+    },
+
+    errorEnumAdmin: {
+        proc_admin_post_login:"ERROR_ADMIN_LOGIN",
+        proc_admin_get_allUser:"ERROR_IN_GETTING_USERS",
+        proc_admin_get_lastSevenDayUser:"ERROR_GET_LAST_SEVEN_DAYS_USER"
+
+    },
+
 })
+
 
 
 // dataTypeEnum = {
