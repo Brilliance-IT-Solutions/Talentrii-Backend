@@ -69,13 +69,19 @@ module.exports = Object.freeze({
     procedureEnumAdmin:{
      proc_admin_post_login:"proc_admin_post_login",
      proc_admin_get_allUser:"proc_admin_get_allUser",
-     proc_admin_get_lastSevenDayUser:"proc_admin_get_lastSevenDayUser"
+     proc_admin_get_lastSevenDayUser:"proc_admin_get_lastSevenDayUser",
+     proc_admin_post_status:"proc_admin_post_status",
+     proc_admin_delete_user:"proc_admin_delete_user",
+     proc_admin_get_searchResult:"proc_admin_get_searchResult"
     },
 
     errorEnumAdmin: {
         proc_admin_post_login:"ERROR_ADMIN_LOGIN",
         proc_admin_get_allUser:"ERROR_IN_GETTING_USERS",
-        proc_admin_get_lastSevenDayUser:"ERROR_GET_LAST_SEVEN_DAYS_USER"
+        proc_admin_get_lastSevenDayUser:"ERROR_GET_LAST_SEVEN_DAYS_USER",
+        proc_admin_post_status:"ERROR_UPDATING_STATUS",
+        proc_admin_delete_user:"ERROR_DELETING_USER",
+        proc_admin_get_searchResult:"ERROR_GET_SEARCH_RESULT"
 
     },
 
