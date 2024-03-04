@@ -12,7 +12,6 @@ const getAllUsersSchema = Joi.object({
 
 const updateUserStatus = Joi.object({
   userId: Joi.number().required(),
-  id : Joi.number().min(1).required(),
   status:Joi.number().valid(1,2,3,4).required(),
   statusReason:Joi.string().when("status",{
      is:1,

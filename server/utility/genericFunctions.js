@@ -98,7 +98,6 @@
               
                   foundChallenge.media.push({
                       id: media?.id,
-                      url:constants.awsBucketLocationProfile,
                       type: media?.type,
                       thumb: media?.thumbnail_url,
                       original:media?.original_url

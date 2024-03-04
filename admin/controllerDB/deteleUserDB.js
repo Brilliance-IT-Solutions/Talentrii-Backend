@@ -19,7 +19,7 @@ const deleteUserDB = () =>{
 
              const inputObject = [
                 genericFunc.inputparams("userId", dataTypeEnum.int,req.user.id),
-                genericFunc.inputparams("id", dataTypeEnum.int,req.body.id),
+                genericFunc.inputparams("id", dataTypeEnum.int, req.params.id),
 
              ]
              sqlConnect.connectDb(req,errFn,procedureEnumAdmin.proc_admin_delete_user,inputObject,errorEnumAdmin.proc_admin_delete_user,

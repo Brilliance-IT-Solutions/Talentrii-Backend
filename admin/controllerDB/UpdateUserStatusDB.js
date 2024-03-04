@@ -23,12 +23,12 @@ const updateUserStatusDB = () =>{
 
              const inputObject = [
                 genericFunc.inputparams("userId", dataTypeEnum.int,req.user.id),
-                genericFunc.inputparams("id", dataTypeEnum.int,req.body.id),
+                genericFunc.inputparams("id", dataTypeEnum.int,req.params.id),
                 genericFunc.inputparams("status", dataTypeEnum.int,req.body.status),
                 genericFunc.inputparams("statusReason", dataTypeEnum.varChar,req.body.statusReason ? req.body.statusReason : null),
 
              ]
-             sqlConnect.connectDb(req,errFn,procedureEnumAdmin.proc_admin_post_status,inputObject,errorEnumAdmin.proc_admin_post_status,
+             sqlConnect.connectDb(req,errFn,procedureEnumAdmin.proc_admin_update_status,inputObject,errorEnumAdmin.proc_admin_update_status,
                 function(result){
                     if(result.length > 0){
                         if(result[0]){

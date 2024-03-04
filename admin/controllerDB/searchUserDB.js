@@ -8,6 +8,9 @@ const { searchSchema } = require("../../server/schemas/searchSchema");
 const searchUserDB = () =>{
     return{
         searchUserDB : async  (req,res,next) =>{
+            const page = req.query.page
+            const pageSize = req.query.pageSize
+            const startIdx = (page -1) * pageSize
         const successFn = (response) =>{
             jsonResponse.successHandler(res,next,response)
         }
@@ -18,7 +21,9 @@ const searchUserDB = () =>{
       
         const inputObject = [
             genericFunctions.inputparams("userId",dataTypeEnum.varChar,req.user.id),
-            genericFunctions.inputparams("search",dataTypeEnum.varChar,req.query.search)
+            genericFunctions.inputparams("search",dataTypeEnum.varChar,req.query.search),
+            genericFunctions.inputparams("startIdx", dataTypeEnum.varChar, startIdx),
+            genericFunctions.inputparams("pageSize", dataTypeEnum.varChar,pageSize),
         ]
 
         sqlConnect.connectDb(req,errFn,procedureEnumAdmin.proc_admin_get_searchResult,inputObject,errorEnumAdmin.proc_admin_get_searchResult,
@@ -29,7 +34,8 @@ const searchUserDB = () =>{
                         if(data[0] && data.length > 0  && (data[0].message = "search Success")){
                             let response={
                                 "message":"Success",
-                                "data":data
+                                "data":data,
+                                pagination:{totalCount:data[0].totalCount,startIdx:startIdx,pageSize:pageSize}
                             }
                             successFn(response)
                         }else{

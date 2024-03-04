@@ -34,7 +34,7 @@ var sqlDb = () => {
                     }
                     counter += 1
                 })
-                if((procName !== procedureEnum.proc_post_login && procName !== procedureEnum.proc_post_signUp && procName !== procedureEnumAdmin.proc_admin_post_login)){
+                if((procName !== procedureEnum.proc_post_login && procName !== procedureEnum.proc_post_signUp && !procName.startsWith("proc_admin"))){
                     try {
                         const {statusResult, statusReason}= await checkUserStatus(connection,req.user?.id,procedureEnum.proc_get_userStatus)
                         if(statusResult === 1){
@@ -54,6 +54,8 @@ var sqlDb = () => {
                         }
                         else if(statusResult === 3){
                            errroFunc({message:statusReason})
+                        }else{
+                            errroFunc({message:statusReason})
                         }
         
                     } catch (error) {

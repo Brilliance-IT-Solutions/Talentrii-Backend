@@ -33,9 +33,9 @@ module.exports = Object.freeze({
         proc_delete_comments: 'proc_delete_comments',
         proc_update_Profile:"proc_update_Profile",
         proc_update_Challenge:"proc_update_Challenge",
-        proc_create_challenge_privacy: 'proc_create_challenge_privacy',
-        proc_getChallenge_Privacy: 'proc_getChallenge_Privacy',
-        proc_purpose_challange:'proc_purpose_challange',
+        // proc_create_challenge_privacy: 'proc_create_challenge_privacy',
+        // proc_getChallenge_Privacy: 'proc_getChallenge_Privacy',
+        // proc_purpose_challange:'proc_purpose_challange',
         proc_search_challenge:"proc_search_challenge",
     },
 
@@ -59,9 +59,9 @@ module.exports = Object.freeze({
         proc_delete_comments: 'DELETE_COMMENTS_ERROR',
         proc_update_Profile:"EDITPROFILE_ERROR",
         proc_update_Challenge:"ERROR_UPDATING_CHALLENGE",
-        proc_create_challenge_privacy:'CREATE_CHALLENGE_PRIVACY',
-        proc_getChallenge_Privacy: 'GET_CHALLENGE_PRIVACY',
-        proc_purpose_challange:'PURPOSE_CHALLENGE_ERROR',
+        // proc_create_challenge_privacy:'CREATE_CHALLENGE_PRIVACY',
+        // proc_getChallenge_Privacy: 'GET_CHALLENGE_PRIVACY',
+        // proc_purpose_challange:'PURPOSE_CHALLENGE_ERROR',
         proc_search_challenge:"SEARCH_CHALLENGE_ERROR",
 
     },
@@ -70,7 +70,7 @@ module.exports = Object.freeze({
      proc_admin_post_login:"proc_admin_post_login",
      proc_admin_get_allUser:"proc_admin_get_allUser",
      proc_admin_get_lastSevenDayUser:"proc_admin_get_lastSevenDayUser",
-     proc_admin_post_status:"proc_admin_post_status",
+     proc_admin_update_status:"proc_admin_update_status",
      proc_admin_delete_user:"proc_admin_delete_user",
      proc_admin_get_searchResult:"proc_admin_get_searchResult"
     },
@@ -79,7 +79,7 @@ module.exports = Object.freeze({
         proc_admin_post_login:"ERROR_ADMIN_LOGIN",
         proc_admin_get_allUser:"ERROR_IN_GETTING_USERS",
         proc_admin_get_lastSevenDayUser:"ERROR_GET_LAST_SEVEN_DAYS_USER",
-        proc_admin_post_status:"ERROR_UPDATING_STATUS",
+        proc_admin_update_status:"ERROR_UPDATING_STATUS",
         proc_admin_delete_user:"ERROR_DELETING_USER",
         proc_admin_get_searchResult:"ERROR_GET_SEARCH_RESULT"
 

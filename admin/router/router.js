@@ -12,8 +12,8 @@ const serachUserDB = require("../controllerDB/searchUserDB")
 adminRouter.post("/login", loginDB.loginDB)
 adminRouter.get("/getAllUsers", authenticate, GetAllUsersDB.getAllUserDataDB)
 adminRouter.get("/getLastDaysUser", authenticate, GetLastSevenDaysUser.getUserCountLastSevenDays)
-adminRouter.post("/updateUserStatus", authenticate, updateUserStatusDB.updateUserStatusDB)
-adminRouter.delete("/deleteUser", authenticate, deleteUserDB.deleteUserDB)
+adminRouter.put("/updateUserStatus/:id", authenticate, updateUserStatusDB.updateUserStatusDB)
+adminRouter.delete("/deleteUser/:id", authenticate, deleteUserDB.deleteUserDB)
 adminRouter.get("/searchUser", authenticate, serachUserDB.searchUserDB)
 
 module.exports = adminRouter;
