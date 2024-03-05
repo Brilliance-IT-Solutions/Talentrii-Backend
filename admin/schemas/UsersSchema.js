@@ -1,4 +1,4 @@
-const Joi = require("joi")
+const Joi = require("joi").extend(require('@joi/date'));
 
 const getAllUsersSchema = Joi.object({
     userId: Joi.number().required(),
@@ -22,7 +22,14 @@ const updateUserStatus = Joi.object({
   ),
 })
 
+const getCountByDateSchema = Joi.object({
+  userId: Joi.number().required(),
+  startDate:Joi.date().format('YYYY-MM-DD').required(),
+  endDate:Joi.date().format('YYYY-MM-DD').required()
+})
+
 module.exports ={
     getAllUsersSchema,
-    updateUserStatus
+    updateUserStatus,
+    getCountByDateSchema
 }

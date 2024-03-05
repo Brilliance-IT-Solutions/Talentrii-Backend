@@ -7,11 +7,11 @@ const {
   procedureEnumAdmin,
   errorEnumAdmin,
 } = require("../../server/database/databaseEnums");
-const { userIdSchema } = require("../../server/schemas/userIdSchema");
+const { getCountByDateSchema } = require("../schemas/UsersSchema");
 
-const getUserCountLastSevenDays = () => {
+const getUserCountByDate = () => {
   return {
-    getUserCountLastSevenDays: async (req, res, next) => {
+    getUserCountByDate: async (req, res, next) => {
       const successFn = (result) => {
         jsonResponse.successHandler(res, next, result);
       };
@@ -19,19 +19,20 @@ const getUserCountLastSevenDays = () => {
         jsonResponse.errorHandler(res, next, err, statusCode);
       };
        req.query.userId = req.user.id
-        if(genericFunc.validator(req.query,userIdSchema,errFn)== true)
+        if(genericFunc.validator(req.query,getCountByDateSchema,errFn)== true)
         return;
       const inputObject = [
         genericFunc.inputparams("userId", dataTypeEnum.varChar, req.user.id),
-
+        genericFunc.inputparams("startDate", dataTypeEnum.date, req.query.startDate),
+        genericFunc.inputparams("endDate", dataTypeEnum.date, req.query.endDate),
       ];
 
       sqlConnect.connectDb(
         req,
         errFn,
-        procedureEnumAdmin.proc_admin_get_lastSevenDayUser,
+        procedureEnumAdmin.proc_admin_get_countByUserDate,
         inputObject,
-        errorEnumAdmin.proc_admin_get_lastSevenDayUser,
+        errorEnumAdmin.proc_admin_get_countByUserDate,
         async function (result) {
           if (result.length > 0) {
             if (result[0]) {
@@ -62,4 +63,4 @@ const getUserCountLastSevenDays = () => {
 
 
 
-module.exports = getUserCountLastSevenDays();
+module.exports = getUserCountByDate();
