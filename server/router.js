@@ -22,13 +22,14 @@ const getFollowersByUserIdDataDB = require("./controllersDB/follower/getFollower
 const getMutualFriends = require("./controllersDB/follower/mutualFriends")
 const saveChallenge = require("../server/controllersDB/saved/saveChallengeDB")
 const editChallengeDB = require("../server/controllersDB/challenge/editChallengeDB")
+// const noteDB = require("../server/controllersDB/notification/firebaseNotification")
 // const checkFileSizeBasedOnType = require("../server/middleware/filesize")
 // const privacyDB = require("../server/controllersDB/createPrivacyDB")
 // const getPrivacyDB = require("../server/controllersDB/getPrivacyDB");
 // const getPurposeChallenge = require("../server/controllersDB/purposeChallengeDB")
 
 router.get('/', function (req, res, next) {
-    res.send('SERVER STARTED 145')
+    res.send(`SERVER STARTED 149 `)
 })
 
 
@@ -51,7 +52,9 @@ router.post("/follow", authenticate ,FollowUserDB.FollowUserDB)
 router.get("/followers", authenticate ,getFollowersByUserIdDataDB.getFollowersByUserIdDataDB)
 router.get("/mutual-friends", authenticate ,getMutualFriends.getMutualFriendsDataDB)
 router.post("/savechallenge", authenticate ,saveChallenge.challengeSavedDB),
-router.post("/editChallenge",authenticate,editChallengeDB.editChallengeDB)
+router.post("/editChallenge",authenticate,editChallengeDB.editChallengeDB),
+// router.post("/notification",noteDB.note),
+
 // router.post('/privacy',authenticate , privacyDB.privacyDB)
 // router.get('/privacy',authenticate, getPrivacyDB.getPrivacyDB)
 // router.post('/getPurposeChallenge' , authenticate,getPurposeChallenge.PurposeChallengeDataDB),

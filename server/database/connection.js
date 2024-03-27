@@ -76,7 +76,7 @@ var sqlDb = () => {
             }
         })
             function errroFunc(err) {
-                var message = func.errorFunc(err.message || "Err");
+                var message = func.errorFunc(err.message || err.sqlMessage|| "Err");
                 errFn(message);
                 connection.end();
             }

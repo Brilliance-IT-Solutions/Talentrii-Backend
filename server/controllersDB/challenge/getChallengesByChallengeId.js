@@ -38,12 +38,10 @@ const getChallengeByChallengeId = () => {
           if (result.length > 0) {
             if (result[0]) {
               let data = result[0]
-
               if (data[0]?.message === "Challenge Detail Success") {
-                const newarray = await genericFunc.MediaExtractor(result[0])
                 const response = {
                    message: data.message,
-                   data: newarray[0]
+                   data: data[0]
                  };
                  successFn(response);
               } else {
